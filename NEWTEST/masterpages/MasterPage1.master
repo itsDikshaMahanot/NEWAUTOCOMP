@@ -1,0 +1,129 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage1.master.cs" Inherits="masterpages_MasterPage1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+     
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        .sidenav {
+            height: 80%;
+            width: 20%;
+            position: fixed;
+            overflow-x: hidden;
+        }
+
+            .sidenav a {
+                padding: 6px 8px 6px 16px;
+                text-decoration: none;
+                color: #818181;
+                display: block;
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-left: 20%; /* Same as the width of the sidenav */
+            margin-right: 20%;
+            padding-bottom: 2cm;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 10px;
+            }
+
+                .sidenav a {
+                    font-size: 18px;
+                }
+        }
+    </style>
+    <script>
+        $('#logout').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var modal = $(this)
+
+        })
+
+        function pageRedirect() {
+            window.location.href = "Login.aspx";
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-inverse navbar-expand-sm bg-dark navbar-dark sticky-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <asp:Image ID="Image1" runat="server" Height="50px" ImageUrl="~/Assests/netapp.png" Width="50px" /><a class="w3schools-logo notranslate" "></a>
+                    <span> &nbsp<a class="navbar-brand" href="#">AutoComp</a></span>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="collapsibleNavbar">
+                    <ul class="nav navbar-nav navbar-right" style="right: 0; margin-right: 20px; position: absolute;">
+                        <li class="nav-item">
+                            <asp:Button ID="Button2" runat="server" CssClass="w3-button w3-light-green w3-round-large" Text="HOME" OnClick="Button2_Click" /> 
+                        </li> &nbsp                     
+                        <li class="nav-item">
+                            <%--<asp:Button ID="Button1" runat="server" CssClass="w3-button w3-light-blue w3-round-large" Text="LOGOUT" OnClick="Button1_Click"  />--%> 
+                            <!-- Button trigger modal -->
+                            <button type="button" class="w3-button w3-light-blue w3-round-large" data-toggle="modal" data-target="#logout">
+                            LOGOUT
+                            </button>
+
+                            <!-- Modal -->
+                            <%--<a class="nav-link" href="Login.aspx">LOGOUT</a>--%>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <div>
+           
+        </div>
+        <div class="container-fluid" style="padding: 2%;">
+            
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+                 </asp:ContentPlaceHolder> 
+
+        </div>
+        <div class="bg-dark navbar-dark text-center sticky-bottom" style="margin-bottom: 0; bottom: 0; position: fixed; width: -webkit-fill-available; color: cornsilk;">
+            <p>&copy NetApp</p>
+        </div>  
+      </form>   
+    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutModal" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="logoutModal">LOGOUT</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                   Do you want to logout ?
+                                  </div>
+                                  <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                                     
+                                    <button type="button" class="btn btn-primary"  onclick="pageRedirect()">Logout</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+</body>
+</html>
