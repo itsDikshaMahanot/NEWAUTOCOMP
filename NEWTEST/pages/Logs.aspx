@@ -17,7 +17,7 @@
             border-radius: 10px;
             width: 68%;
             margin-left: 50px;
-            height: 100px;
+            height: 125px;
             text-align: center;
             margin-top: 10%;
         }
@@ -28,7 +28,7 @@
             font-size: 14px;
             font-weight: bold;
             margin-bottom: 50px;
-            width: 5%;
+            width: 1%;
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: #ffffff;
@@ -43,7 +43,7 @@
                     <legend>LOGS </legend>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <asp:LinkButton ID="btnEMS" class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="To check EMS Error MSG">EMS</asp:LinkButton>
+                            <asp:LinkButton ID="btnEMS"  class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="To check EMS Error MSG">EMS</asp:LinkButton>
                             <asp:LinkButton ID="btnenvironment" class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="To check Variables in Environment ">ENVIRONMENT</asp:LinkButton>
                             <asp:LinkButton ID="btnsysconfiga" class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="To check the all Disk Information">SYSCONFIG-A</asp:LinkButton>
                             <asp:LinkButton ID="btnsysconfigr" class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="To find the Disk in which AGGR">SYSCONFIG-R</asp:LinkButton>
