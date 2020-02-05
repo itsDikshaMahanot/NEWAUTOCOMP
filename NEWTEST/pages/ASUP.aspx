@@ -13,12 +13,12 @@
 fieldset 
 	{
 		border: 5px solid #ddd !important;
-		padding: 6%;       
+		padding: 2%;       
 		position: relative;
 		border-radius:10px;		
-		width: 35%;
+		width: 45%;
         margin-left: 250px;
-        height: 200px;
+        height: 220px;
         text-align:center;
         margin-top:10%;
 }
@@ -50,11 +50,12 @@ fieldset
                             <asp:LinkButton ID="btnAOD" class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="Click to check ASUP AOD" OnClick="btnAOD_Click">AOD</asp:LinkButton>
                         </p>
                     </div>
+                    <asp:Label ID="Label1" runat="server" ForeColor="#3366CC" ToolTip="Collect Logs from Customer" Font-Size="Medium"></asp:Label>
                 </div>
 
                 <br />
                 <br />
-                <asp:Label ID="Label1" runat="server" ForeColor="#3366CC" ToolTip="Collect Logs from Customer" Font-Size="Medium"></asp:Label>
+               
             </fieldset>
         </div>
     </form>

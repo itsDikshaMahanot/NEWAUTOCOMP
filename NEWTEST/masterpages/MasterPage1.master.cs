@@ -23,4 +23,9 @@ public partial class masterpages_MasterPage1 : System.Web.UI.MasterPage
     {
         Response.Redirect("Login.aspx");
     }
+
+    protected void Button1_Click1(object sender, EventArgs e)
+    {
+        Response.Redirect("http://pcrmui.corp.netapp.com/sap(bD1lbiZjPTUwMCZkPW1pbg==)/bc/bsp/sap/crm_ui_start/default.htm");
+    }
 }

@@ -72,19 +72,18 @@
                 </button>
                 <div class="collapse navbar-collapse " id="collapsibleNavbar">
                     <ul class="nav navbar-nav navbar-right" style="right: 0; margin-right: 20px; position: absolute;">
+                       
                         <li class="nav-item">
-                            <asp:Button ID="Button2" runat="server" CssClass="w3-button w3-light-green w3-round-large" Text="HOME" OnClick="Button2_Click" /> 
+                            <asp:Button ID="Button1" runat="server" CssClass="w3-button w3-light-green w3-round-large" Text="CREATE RMA" OnClick="Button1_Click1"/> 
+                        </li> &nbsp  
+                        <li class="nav-item">
+                            <asp:Button ID="Button2" runat="server" CssClass="w3-button w3-light-blue w3-round-large" Text="HOME" OnClick="Button2_Click" /> 
                         </li> &nbsp                     
-                        <li class="nav-item">
-                            <%--<asp:Button ID="Button1" runat="server" CssClass="w3-button w3-light-blue w3-round-large" Text="LOGOUT" OnClick="Button1_Click"  />--%> 
+                        <li class="nav-item">                          
                             <!-- Button trigger modal -->
                             <button type="button" class="w3-button w3-light-blue w3-round-large" data-toggle="modal" data-target="#logout">
-                            LOGOUT
-                            </button>
-
-                            <!-- Modal -->
-                            <%--<a class="nav-link" href="Login.aspx">LOGOUT</a>--%>
-                        </li>
+                            LOGOUT</button>
+                       </li>
                     </ul>
 
                 </div>

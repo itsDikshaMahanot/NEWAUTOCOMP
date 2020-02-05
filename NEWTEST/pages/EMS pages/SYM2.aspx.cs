@@ -5,15 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class pages_Logs : System.Web.UI.Page
+public partial class pages_EMS_pages_SYM2 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
-    }
-
-    protected void btnEMS_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("EMS.aspx");
     }
 }
