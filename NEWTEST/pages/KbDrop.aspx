@@ -15,8 +15,8 @@
                         <asp:ListItem class="dropdown-item">Failed</asp:ListItem>
                         <asp:ListItem class="dropdown-item">Alert</asp:ListItem>
                         <asp:ListItem class="dropdown-item">Multipath Error</asp:ListItem>
+                        <asp:ListItem class="dropdown-item">Multi-Disk Error</asp:ListItem>
                         <asp:ListItem class="dropdown-item">Multi Disk Failure</asp:ListItem>
-                        <asp:ListItem class="dropdown-item">Multi-disks Error</asp:ListItem>
             </asp:dropdownlist>
                 <br /><br /><br />
 

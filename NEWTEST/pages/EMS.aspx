@@ -18,8 +18,11 @@
         <br />
         <br />
         <div >
-            <ul type="square">
-                <li>
+            <p>
+                [?] Sat Feb 01 09:58:57 HKT [hk-cdot1-02: config_thread: raid.config.filesystem.disk.failed:error]: File system Disk /aggr0_hk_cdot_02_0/plex0/rg0/0a.11.0 Shelf 11 Bay 0 [NETAPP   X477_SMEGX04TA07 NA03] S/N [Z1ZB3WF5] failed.
+            </p>
+           <%-- <ul type="square">--%>
+                <%--<li>
                     <a href="EMS pages/SYM1.aspx" class=" a w3-hover-pale-blue">Performance degradation due to misbehaving disk</a>
                 </li><br />
                 <li>
@@ -42,7 +45,7 @@
                 </li><br />
                 <li>
                     <a href="EMS pages/SYM8.aspx" class="a w3-hover-pale-blue">Device Qualification Failed Critical</a>
-                </li><br />
+                </li><br />--%>
             </ul>
 
         </div>

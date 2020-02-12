@@ -58,20 +58,20 @@ public partial class pages_KbDrop : System.Web.UI.Page
             GridView1.DataBind();
             con.Close();
         }
-        if (DropDownList1.SelectedIndex == 4)
+        if (DropDownList1.SelectedIndex == 5)
         {
             con.Open();
-            String query = "select * from  kbData where kb_type = 'Multi Disk Failure' ";
+            String query = "select * from  kbData where kb_type = 'multi-Disk Failure' ";
             cmd = new SqlCommand(query, con);
             da = new SqlDataAdapter();
             GridView1.DataSource = cmd.ExecuteReader();
             GridView1.DataBind();
             con.Close();
         }
-        if (DropDownList1.SelectedIndex == 5)
+        if (DropDownList1.SelectedIndex == 4)
         {
             con.Open();
-            String query = "select * from  kbData where kb_type = 'Multi-disks Error' ";
+            String query = "select * from  kbData where kb_type = 'multi-disk error' ";
             cmd = new SqlCommand(query, con);
             da = new SqlDataAdapter();
             GridView1.DataSource = cmd.ExecuteReader();
