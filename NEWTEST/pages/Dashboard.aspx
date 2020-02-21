@@ -87,6 +87,30 @@
                     <li class="nav-item">
                         <a class="nav-link " href="#">Last</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Last</a>
+                    </li>
                 </ul>
                 <hr class="d-sm-none">
             </nav>

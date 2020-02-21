@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -76,8 +77,8 @@
                 <tr>
                     <td class="auto-style1" colspan="3"> 
                         <asp:Button ID="search" runat="server" Text=" SEARCH"  align="center" CssClass="w3-button w3-light-green w3-round-large"  Width="140px" style="margin-top:3%; margin-left: 70px; margin-right: 60px;" ToolTip="search for Duplicate Cases" OnClick="btnsearch_Click" />
-                        <br />
-                        <asp:Label ID="Label1" runat="server" style="margin-left:70px" ForeColor="Red"></asp:Label>
+                        <br /><br />
+                        <asp:Label ID="Label1" runat="server" style="margin-left:80px"  ForeColor="Red" ></asp:Label>
                     </td>
                 </tr>
             </table>
