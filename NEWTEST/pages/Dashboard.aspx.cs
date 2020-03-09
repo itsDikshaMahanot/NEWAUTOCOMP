@@ -18,6 +18,14 @@ public partial class pages_Dashboard : System.Web.UI.Page
     {
         con = new SqlConnection(connetionString);
     }
- 
-   
+        
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Newdashboard.aspx");
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("NewPSUdashboard.aspx");
+    }
 }

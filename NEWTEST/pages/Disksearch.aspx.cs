@@ -16,29 +16,45 @@ public partial class pages_Disksearch : System.Web.UI.Page
         string connetionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         SqlConnection con;
         SqlDataAdapter da;
-        SqlCommand cmd;       
+        SqlCommand cmd;
         con = new SqlConnection(connetionString);
         con.Open();
         if (!string.IsNullOrEmpty(Request.QueryString.ToString()))
         {
             string srl = Request.QueryString["sr"];
             string psrl = Request.QueryString["psr"];
-             query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "'  ";
+            string asupon = Request.QueryString["asup_on"];
+            string asupaod = Request.QueryString["asup_aod"];
+            string asupoff = Request.QueryString["asup_off"];
+            query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "'  ";
             cmd = new SqlCommand(query, con);
             da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            con.Close();
             GridView1.DataSource = dt;
-            GridView1.DataBind();
+            if (dt.Rows.Count > 0)
+            {
+                GridView1.DataBind();
+            }
+            if (asupon != string.Empty | asupaod != string.Empty)
+            {
+                Label2.Text = "Check For duplicate case here !";
+            }
+            if (asupoff != string.Empty)
+            {
+                Label2.Text = " COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER <br/>" +
+                "> EMS LOG FILE  <br/>For cluster : cluster1::> event log show " +
+                "<br/>For 7 MODE : node1 >ems event status ><br/><br/>" +
+                "> SYSCONFIG -A <br/> For cluster : cluster1::> system node run -node {nodename|local} sysconfig -a " +
+                "<br/> For 7 MODE : node1 > sysconfig -a <br/><br/>" +
+                "> SYSCONFIG -R <br/> For cluster : cluster1::>system node run -node {nodename|local} sysconfig -r " +
+                "<br/> For 7 MODE : node1 > sysconfig -r";
+            }
+            else
+            {
+                Label2.Text = "No Duplicate case found";
+            }
         }
-    else if(query == null)
-        {
-            Label2.Text= "No Duplicate case found";
-        }
-    }
-    protected void chcekASUP_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("ASUP.aspx");
+        con.Close();
     }
 }

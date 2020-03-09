@@ -16,14 +16,17 @@ public partial class pages_Disk : System.Web.UI.Page
 
         string sr = serialnumber.Text;
         string psr = partnerserialnumber.Text;
+        string asup_on = on.Text;
+        string asup_aod = aod.Text;
+        string asup_off = off.Text;
         if (casenumber.Text == String.Empty | serialnumber.Text == String.Empty | partnerserialnumber.Text == String.Empty | single.Checked != true & multiple.Checked != true)
         {
             Label1.Text = " Required all Fields";
         }
         else
         {
-            Response.Redirect(string.Format("Disksearch.aspx?sr={0}&psr={1}", sr, psr));
-
+            Response.Redirect(string.Format("Disksearch.aspx?sr={0}&psr={1}", sr, psr,asup_on,asup_aod,asup_off));
+            
         }
        
     }

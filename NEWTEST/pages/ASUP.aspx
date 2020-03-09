@@ -18,7 +18,7 @@ fieldset
 		border-radius:10px;		
 		width: 45%;
         margin-left: 250px;
-        height: 220px;
+        height: 150px;
         text-align:center;
         margin-top:10%;
 }
@@ -26,12 +26,12 @@ fieldset
 	
 		legend
 		{
-			font-size:14px;
+			font-size:10%;
 			font-weight:bold;
-			margin-bottom: 50px; 
-			width: 10%; 
+			margin-bottom: 70px; 
+			width: 8%; 
 			border: 1px solid #ddd;
-			border-radius: 4px; 		
+			border-radius: 2px; 		
 			background-color: #ffffff;
 		}
        
@@ -39,7 +39,7 @@ fieldset
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div >
             <fieldset >
                 <legend>ASUP Status</legend>
                 <div class="panel panel-default">
@@ -49,14 +49,13 @@ fieldset
                             <asp:LinkButton ID="btnOFF" class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="Click to check ASUP OFF" OnClick="btnOFF_Click">OFF</asp:LinkButton>
                             <asp:LinkButton ID="btnAOD" class="w3-button w3-hover-blue w3-round-large" runat="server" ToolTip="Click to check ASUP AOD" OnClick="btnAOD_Click">AOD</asp:LinkButton>
                         </p>
-                    </div>
-                    <asp:Label ID="Label1" runat="server" ForeColor="#3366CC" ToolTip="Collect Logs from Customer" Font-Size="Medium"></asp:Label>
-                </div>
-
-                <br />
-                <br />
-               
-            </fieldset>
+                    </div>                    
+                </div>           
+                </fieldset>
+            <div style="margin-left:30%">
+                 <asp:Label ID="Label1" runat="server"  ForeColor="#3366CC" ToolTip="Collect Logs from Customer" Font-Size="Medium"></asp:Label>
+            </div>
+           
         </div>
     </form>
 </body>

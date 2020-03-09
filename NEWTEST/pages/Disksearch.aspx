@@ -36,8 +36,7 @@
          </div>
         <br />
         <div align="center">
-            <asp:Label ID="Label2" runat="server"  style="margin-left:80px"></asp:Label><br /><br />
-            <asp:button id="chcekASUP" runat="server" text=" Check ASUP" Style="margin-right: 150px;margin-left: 0px;" CssClass="w3-light-blue w3-centered" width="140px" OnClick="chcekASUP_Click" ToolTip="Click to check ASUP" />
+            <asp:Label ID="Label2" runat="server"  style="margin-left:70px"></asp:Label>
         </div>
     </form>
 </body>
