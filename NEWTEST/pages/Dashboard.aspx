@@ -61,13 +61,18 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="row flex-xl-nowrap " style="padding-left: 0.5cm; padding-right: 0.5cm;">
-        <div class="col-xl-2 col-lg-8" style="color: blue;margin-left:35%;  margin-top: 15%">
-            <asp:Button ID="Button1" class="button" runat="server" Text="DISK ISSUE" OnClick="Button1_Click" />
+    <div class="row flex-xl-nowrap " style="padding-left: 0.5cm; padding-right: 0.5cm;" draggable="false">
+        <div class="col-xl-1" style="color: blue; padding-top:5%">
+
         </div>
-        <div class="col-xs-4 col-md-4" style="color: blue; margin-top: 15%; margin-right :10%">
-            <asp:Button ID="Button2" class="button" runat="server" Text="PSU ISSUE" OnClick="Button2_Click" />
-            <%--<a class="button" href="PSU.aspx">PSU ISSUES</a>--%>
+        <div class="col-xl-2 col-lg-8 col-md-12" style="color: blue; padding-top:5% " >
+           <%-- <asp:Button ID="Button1" class="button" runat="server" Text="DISK ISSUE" OnClick="Button1_Click" />--%>
+            <asp:imagebutton runat="server" AlternateText="Disk Issue" ForeColor="#FF9933"  ImageUrl="~/Assests/diskissues.png" OnClick="Disk_Click" ToolTip="Disk Issue" BackColor="Black" BorderStyle="Solid" Height="50%" ImageAlign="Middle"></asp:imagebutton>
+        </div>
+        <div class="col-xs-4 col-md-4" style="color: blue; padding-top:5%">
+          <asp:imagebutton runat="server" AlternateText="Psu Issue" ForeColor="#FF9933"  ImageUrl="~/Assests/psuissue.png" OnClick="Button2_Click" ToolTip="Psu Issue" BackColor="Black" BorderStyle="Solid" Height="50%" ImageAlign="Middle"></asp:imagebutton>
+         
+           
         </div>
     </div>
 

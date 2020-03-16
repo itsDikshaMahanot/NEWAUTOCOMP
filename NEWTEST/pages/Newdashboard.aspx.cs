@@ -11,9 +11,4 @@ public partial class pages_Newdashboard : System.Web.UI.Page
     {
 
     }
-
-    protected void Button_click(object sender, EventArgs e)
-    {
-        Response.Redirect("Dashboard.aspx");
-    }
-}
+   }
