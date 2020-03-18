@@ -39,9 +39,10 @@
                         <asp:TextBox ID="category1" placeholder="Category1" runat="server" Enabled="False" Width="170px">Hardware </asp:TextBox>
                             &nbsp&nbsp&nbsp
                         <asp:DropDownList ID="category2" placeholder="Category2" runat="server" Height="20pt"  CausesValidation="True" OnSelectedIndexChanged="category2_SelectedIndexChanged">
-                             <asp:ListItem Text="Select" Selected="True" Value=""></asp:ListItem>
+                             <asp:ListItem Selected="True" Text="Select"></asp:ListItem>
                             <asp:ListItem Text="FAS" Enabled="True" Value="FAS"> FAS</asp:ListItem>
                             <asp:ListItem Text=" FAS-MCC" Enabled="True" Value="FAS-MCC">FAS-MCC</asp:ListItem>
+                             <asp:ListItem Value="">AFF</asp:ListItem>
                         </asp:DropDownList>                            
                         </td>
                     </tr>
@@ -64,7 +65,6 @@
                             <asp:RadioButton ID="off" runat="server" Text=" OFF " GroupName="Asup_Status" />
                         </td>
                     </tr>
-                    <tr>
                         <tr>
                             <td class="auto-style1" colspan="3">&nbsp;</td>
                         </tr>

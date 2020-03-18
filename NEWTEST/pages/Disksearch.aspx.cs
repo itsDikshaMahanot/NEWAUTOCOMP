@@ -22,23 +22,17 @@ public partial class pages_Disksearch : System.Web.UI.Page
         if (!string.IsNullOrEmpty(Request.QueryString.ToString()))
         {
             string srl = Request.QueryString["sr"];
-            string psrl = Request.QueryString["psr"];
-            //string asupon = Request.QueryString["asup_on"];
-            //string asupaod = Request.QueryString["asup_aod"];
-            //string asupoff = Request.QueryString["asup_off"];
+            string psrl = Request.QueryString["psr"];           
             string asup_status = Request.QueryString["asup_status"];
             string category = Request.QueryString["category"];
-                        //TESTING QUERY
-            query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "' and [ASUP_Status] ='" + asup_status+ "' ";
+            //TESTING QUERY
+            query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "' and [ASUP_Status] ='" + asup_status+ "' and [Cat_ID] ='"+category+"' ";
 
             cmd = new SqlCommand(query, con);
             da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            GridView1.DataSource = dt;
-
-          
-
+            GridView1.DataSource = dt;        
             //Testing Conditions
 
             if(dt.Rows.Count > 0 && asup_status != string.Empty)
@@ -62,5 +56,10 @@ public partial class pages_Disksearch : System.Web.UI.Page
             }
         }
         con.Close();
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Disk.aspx");
     }
 }

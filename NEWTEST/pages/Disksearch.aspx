@@ -10,8 +10,12 @@
 <body>
     <form id="form1" runat="server">       
     <br />
-    <br />
-    <div class="container align="center">
+        <div class="w3-center"center">
+            <div class="w3-center">
+                <br />
+                <asp:Button ID="Button1" runat="server" BackColor="#FF9900" CssClass="w3-button" OnClick="Button1_Click" Text="Go Back" />
+                <br />
+            </div>
         <asp:GridView ID="GridView1" runat="server" CellPadding="10" forecolor="#333333" gridlines="None" autogeneratecolumns="False" cellspacing="5"  HorizontalAlign="Center">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
