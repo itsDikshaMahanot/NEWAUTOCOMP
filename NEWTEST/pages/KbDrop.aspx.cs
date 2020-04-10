@@ -79,4 +79,9 @@ public partial class pages_KbDrop : System.Web.UI.Page
             con.Close();
         }
     }
+
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }

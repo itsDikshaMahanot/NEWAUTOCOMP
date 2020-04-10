@@ -68,6 +68,7 @@
                         <tr>
                             <td class="auto-style1" colspan="3">&nbsp;</td>
                         </tr>
+                    <tr>
                         <td class="auto-style1" colspan="3">
                             <asp:Label ID="sym" runat="server" Text="Select Current Case Symptom" Font-Bold="True" Font-Size="Small"></asp:Label>
                         </td>

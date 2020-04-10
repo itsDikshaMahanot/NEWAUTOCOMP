@@ -26,7 +26,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
             string asup_status = Request.QueryString["asup_status"];
             string category = Request.QueryString["category"];
             //TESTING QUERY
-            query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "' and [ASUP_Status] ='" + asup_status+ "' and [Cat_ID] ='"+category+"' ";
+            query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed,Link from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "' and [ASUP_Status] ='" + asup_status+ "' and [Cat_ID] ='"+category+"' ";
 
             cmd = new SqlCommand(query, con);
             da = new SqlDataAdapter(cmd);
@@ -40,7 +40,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
                 if(asup_status.Equals("ON") || asup_status.Equals("AOD"))
                 {
                     GridView1.DataBind();
-                    Label2.Text = "Check All cases Here !!";
+                    Label2.Text = " Check All cases Here !! <br/> " +" Click on the link to close the case !! " ;
                 }
 
                 else if (asup_status.Equals("OFF"))
@@ -61,5 +61,10 @@ public partial class pages_Disksearch : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         Response.Redirect("Disk.aspx");
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Default.aspx");
     }
 }

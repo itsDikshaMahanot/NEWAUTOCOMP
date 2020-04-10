@@ -58,7 +58,7 @@
         }
     </style>
 
-    <script>  //code for src to come in iframe 
+    <%--<script>  //code for src to come in iframe 
         $(document).ready(function () {
             $("a").click(function (e) {
                 e.preventDefault();
@@ -70,7 +70,7 @@
 
 
 
-    </script>
+    </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="row flex-xl-nowrap " style="padding-left: 0.3cm; padding-right: 0.3cm;" draggable="false">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                     <div class="card shadow p-3 mb-5 bg-white rounded" style="align-self: center;">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="align-self: center;">
                         <div class="card-body" style="align-self: center;">
                             <asp:ImageButton runat="server" AlternateText="Disk Issue" ForeColor="#FF9933" ImageUrl="~/Assests/psuissue.png" ToolTip="Disk Issue" BackColor="Black" BorderStyle="Solid" ImageAlign="AbsMiddle" PostBackUrl="~/pages/NewPSUdashboard.aspx" Height="150px" CssClass="rounded-right"></asp:ImageButton>
                             <br />
@@ -101,19 +101,21 @@
                 </div>
             </div>
         </div>
+        <div style="width: 30%;">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="align-self: center;">
+                        <div class="card-body" style="align-self: center;">
+                            <h5 class="card-title" style="letter-spacing: normal; font-size: large; color: #FF9933; text-transform: capitalize; text-align: center;">LINKS</h5>
+                            <a href="https://mysupport.netapp.com/">My Support Page
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    </div>
-    <%-- <div class="col-xl-2 col-lg-8 col-md-12" style="color: blue; width:60%; padding:5%; text-align: center;" >
-            <asp:Button ID="Button1" class="button" runat="server" Text="DISK ISSUE" OnClick="Button1_Click" />
-            <asp:imagebutton runat="server" AlternateText="Disk Issue" ForeColor="#FF9933"  ImageUrl="~/Assests/diskissues.png" OnClick="Disk_Click" ToolTip="Disk Issue" BackColor="Black" BorderStyle="Solid" Height="50%" ImageAlign="Middle"></asp:imagebutton>
-            <br />
-            <asp:Label ID="Label1" runat="server" Text="Disk Issue" Font-Bold="True" Font-Size="16pt"></asp:Label>
+
         </div>
-        <div class="col-xs-4 col-md-4" style="color: blue; padding-top:5%">
-          <asp:imagebutton runat="server" AlternateText="Psu Issue" ForeColor="#FF9933"  ImageUrl="~/Assests/psuissue.png" OnClick="Button2_Click" ToolTip="Psu Issue" BackColor="Black" BorderStyle="Solid" Height="50%" ImageAlign="Middle"></asp:imagebutton>
-         
-           
-        </div>--%>
     </div>
 
 

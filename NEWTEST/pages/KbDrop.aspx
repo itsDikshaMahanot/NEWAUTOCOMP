@@ -20,7 +20,7 @@
             </asp:dropdownlist>
                 <br /><br /><br />
 
-                <asp:gridview id="GridView1" runat="server" cellpadding="10" forecolor="#333333" gridlines="None" autogeneratecolumns="False" cellspacing="5">
+                <asp:gridview id="GridView1" runat="server" cellpadding="10" forecolor="#333333" gridlines="None" autogeneratecolumns="False" cellspacing="5" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
 
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
