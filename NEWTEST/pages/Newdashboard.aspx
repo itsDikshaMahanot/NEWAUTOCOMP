@@ -30,11 +30,9 @@
             /*margin-left:400px;
             margin-top:50px;*/
         }
-
             .button:hover {
                 background-color: #3e8e41
             }
-
             .button:active {
                 background-color: #3e8e41;
                 box-shadow: 0 5px #666;
@@ -55,7 +53,6 @@
                 $("#myFrame").attr("src", $(this).attr("href"));
             })
         });
-
        
     </script>
 </asp:Content>
@@ -66,4 +63,3 @@
     </div>
         </div>
 </asp:Content>
-

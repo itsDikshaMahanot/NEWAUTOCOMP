@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="pages_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestDefault.aspx.cs" Inherits="Test_TestDefault" %>
+
 
 <!DOCTYPE html>
 
@@ -14,14 +15,32 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%--<script type="text/javascript">
+        $(function () {
+            $("[id*=GridView1] input[type=checkbox]").click(function () {
+                if ($(this).is(":checked")) {
+                    $("[id*=GridView1] input[type=checkbox]").removeAttr("checked");
+                    $(this).attr("checked", "checked");
+                    //if (this.checked == true) {
+                    //$('[id$="Button3"]').attr('disabled', false);
+
+                    //}
+                }
+            });
+        });
+    </script>--%>
+
+
 </head>
 <body>
     <form id="form1" runat="server" font-names="Bodoni MT">
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <div class="col-sm-3 h-100" align="center" style="padding: 10px 20px 10px 20px">
+                <div class="col-md-5 h-100" align="center" style="padding: 10px 20px 10px 20px">
                     <asp:Label ID="Label3" runat="server" Text="CASE SEARCH"></asp:Label>
-                    <table class="w3-card w3-padding-24" align="center" style="border-style: outset; border-width: medium; border-collapse: separate; border-spacing: 15px; width: 20%; font-family: 'Bodoni MT';">
+                    <table class="w3-card w3-padding-24" align="center" style="border-style: outset; border-width: medium; border-collapse: separate; border-spacing: 15px; width: 70%; font-family: 'Bodoni MT';">
                         <tr class="w3-center">
                             <td>
                                 <input type="text" class="input-text autoclear" runat="server" id="serialnumber" style="width: 80%" />
@@ -44,41 +63,69 @@
                         </tr>
                         <tr class="d-flex">
                             <td class="d-inline-flex p-3" colspan="3" rowspan="2">
-                                <asp:Label ID="Label1" runat="server" Text="Upload status:"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text="Upload status: "></asp:Label>
+                                &nbsp &nbsp
                                 <asp:Label ID="Label2" runat="server" Text="aa" ForeColor="Blue"></asp:Label>
                             </td>
                         </tr>
+
+                    </table>
+                    <hr />
+                    <table class="w3-card w3-padding-24" align="center" style="border-style: outset; border-width: medium; border-collapse: separate; border-spacing: 15px; width: 70%; font-family: 'Bodoni MT';">
                         <tr class="w3-center">
-                            <td class="d-inline-flex p-2" colspan="3" rowspan="2">&nbsp
+                            <td>
+                                <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" style="width: 85%; padding: 3px 7px 3px 7px" />
+                            </td>
+                            <td>
+                                <asp:Button ID="Button2" runat="server" Text=" File Search" Width="80%" OnClick="search_File" />
+                            </td>
+                        </tr>
+                        <tr class="w3-center">
+                            <td class="d-inline-flex p-2">&nbsp
                                  <asp:DropDownList ID="commands" placeholder="Commands" runat="server" Height="23pt" Width="150pt" CausesValidation="True">
                                      <asp:ListItem Selected="True" Text="Select"></asp:ListItem>
                                      <asp:ListItem Text="sysconfig -a" Enabled="True" Value="sysconfig -a"> sysconfig -a</asp:ListItem>
                                      <asp:ListItem Text=" sysconfig -r" Enabled="True" Value="sysconfig -r">sysconfig -r</asp:ListItem>
                                  </asp:DropDownList>&nbsp;&nbsp;
                             </td>
-                            <tr class="w3-center">
-                                <td>
-                                    <input id="Text1" type="text" style="width: 75%" />
-                                </td>
-                            </tr>
-                        </tr>
-                        <tr class="w3-center">
                             <td>
-                                <asp:Button ID="Button2" runat="server" Text="Search" Width="75%" />
+                                <input type="text" class="input-text autoclear" placeholder="Search Disk" runat="server" id="Text1" style="width: 85%; padding: 3px 7px 3px 7px" />
                             </td>
                         </tr>
+                        <tr class="w3-center">
+                            <td rowspan="2">
+                                <asp:Button ID="Button3" runat="server" Text="Search" Width="90%" OnClick="search_Content" CssClass="w3-center" />
+                            </td>
+                        </tr>
+                         <tr >
+                             <td>
+                                 <asp:Label ID="result" runat="server" Text="Label" ForeColor="PaleVioletRed"></asp:Label>
+                             </td>
+                         </tr>                      
                     </table>
                 </div>
-                <div class="col-sm-4 ">
-                    <div class="col offset-2 offset-sm-6 py-2">
-                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
+                <div class="col-sm-1 ">
+                    <div class="col offset-2 offset-sm-2 py-2">
+
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" >
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
-                                <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" SortExpression="ID" />
-                                <asp:BoundField DataField="serialno" HeaderText="Serial Number" ReadOnly="True" SortExpression="serialno" />
+                                <asp:CommandField ButtonType="Button" CancelText="" DeleteText="" EditText="" HeaderText="Choose" InsertText="" NewText="" ShowSelectButton="True" />
+                                <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" >
+                                    <FooterStyle Wrap="False" />
+                                    <HeaderStyle Width="40px" Wrap="False" />
+                                    <ItemStyle Width="20px" Wrap="False" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="serialno" HeaderText="Serial Number" ReadOnly="True" >
+                                    <FooterStyle Wrap="False" />
+                                    <HeaderStyle Wrap="False" />
+                                    <ItemStyle Wrap="False" />
+                                </asp:BoundField>
                                 <asp:BoundField DataField="name" HeaderText="Name" ReadOnly="True" />
-                                <asp:BoundField DataField="Content_Type" HeaderText="Content_Type" ReadOnly="True" SortExpression="Content_Type" />
-                                <asp:BoundField DataField="size" HeaderText="Size" ReadOnly="True" SortExpression="size" DataFormatString="{0:#,### kb}" NullDisplayText="null" />
+                                <asp:BoundField DataField="Content_Type" HeaderText="Content_Type" ReadOnly="True" />
+                                <asp:BoundField DataField="size" HeaderText="Size" ReadOnly="True" DataFormatString="{0:#,### kb}" NullDisplayText="null">
+                                    <ItemStyle Wrap="False" />
+                                </asp:BoundField>
                             </Columns>
                             <EditRowStyle BackColor="#2461BF" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -91,10 +138,10 @@
                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
+
                     </div>
                 </div>
             </div>
-        </div>
     </form>
 </body>
 </html>
