@@ -17,21 +17,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <%--<script type="text/javascript">
-        $(function () {
-            $("[id*=GridView1] input[type=checkbox]").click(function () {
-                if ($(this).is(":checked")) {
-                    $("[id*=GridView1] input[type=checkbox]").removeAttr("checked");
-                    $(this).attr("checked", "checked");
-                    //if (this.checked == true) {
-                    //$('[id$="Button3"]').attr('disabled', false);
-
-                    //}
-                }
-            });
-        });
-    </script>--%>
-
 
 </head>
 <body>
@@ -43,12 +28,12 @@
                     <table class="w3-card w3-padding-24" align="center" style="border-style: outset; border-width: medium; border-collapse: separate; border-spacing: 15px; width: 70%; font-family: 'Bodoni MT';">
                         <tr class="w3-center">
                             <td>
-                                <input type="text" class="input-text autoclear" runat="server" id="serialnumber" style="width: 80%" />
+                                <input type="text" class="input-text autoclear" runat="server" id="serialnumber" placeholder="SerialNumber" style="width: 80%" />
                             </td>
                         </tr>
                         <tr class="w3-center">
                             <td>
-                                <input id="partnerserialnumber" type="text" class="input-text autoclear" runat="server" style="width: 80%" />
+                                <input id="partnerserialnumber" type="text" class="input-text autoclear" placeholder="Partner SerialNumber" runat="server" style="width: 80%" />
                             </td>
                         </tr>
                         <tr class="w3-center">
@@ -65,7 +50,8 @@
                             <td class="d-inline-flex p-3" colspan="3" rowspan="2">
                                 <asp:Label ID="Label1" runat="server" Text="Upload status: "></asp:Label>
                                 &nbsp &nbsp
-                                <asp:Label ID="Label2" runat="server" Text="aa" ForeColor="Blue"></asp:Label>
+                                <asp:Label ID="status" runat="server" Text="aa" ForeColor="Blue"></asp:Label>
+                               
                             </td>
                         </tr>
 
@@ -97,17 +83,17 @@
                                 <asp:Button ID="Button3" runat="server" Text="Search" Width="90%" OnClick="search_Content" CssClass="w3-center" />
                             </td>
                         </tr>
-                         <tr >
-                             <td>
-                                 <asp:Label ID="result" runat="server" Text="Label" ForeColor="PaleVioletRed"></asp:Label>
-                             </td>
-                         </tr>                      
+                        <tr>
+                            <td>
+                                <asp:Label ID="result" runat="server" Text="Label" ForeColor="PaleVioletRed"></asp:Label>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div class="col-sm-1 ">
                     <div class="col offset-2 offset-sm-2 py-2">
 
-                        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" >
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:CommandField ButtonType="Button" CancelText="" DeleteText="" EditText="" HeaderText="Choose" InsertText="" NewText="" ShowSelectButton="True" />
@@ -116,7 +102,7 @@
                                     <HeaderStyle Width="40px" Wrap="False" />
                                     <ItemStyle Width="20px" Wrap="False" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="serialno" HeaderText="Serial Number" ReadOnly="True" >
+                                <asp:BoundField DataField="serialno" HeaderText="Serial Number" ReadOnly="True">
                                     <FooterStyle Wrap="False" />
                                     <HeaderStyle Wrap="False" />
                                     <ItemStyle Wrap="False" />
@@ -138,10 +124,10 @@
                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
-
                     </div>
                 </div>
             </div>
+        </div>
     </form>
 </body>
 </html>

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
 
 public partial class Test_TestDefault : System.Web.UI.Page
 {
@@ -29,93 +31,189 @@ public partial class Test_TestDefault : System.Web.UI.Page
         {
             using (SqlCommand cmd = new SqlCommand())
             {
+
                 cmd.CommandText = "select Id, serialno, name, Content_Type, size from Upload_Log where serialno = " + filename;
                 cmd.Connection = con;
                 con.Open();
+
                 GridView1.DataSource = cmd.ExecuteReader();
                 GridView1.DataBind();
+
                 con.Close();
             }
         }
 
     }
 
-
-    //protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
-    //{ 
-    //    //creating checkbox column//
-
-    //   CheckBox checkbox = new CheckBox();
-
-    //    if (e.Row.RowType == DataControlRowType.DataRow)
-    //    {
-    //        checkbox.ID = "chkChecked";
-    //        checkbox.AutoPostBack = false;
-    //        e.Row.Cells[0].Controls.Add(checkbox);
-    //    }
-
-    //}
-
-
     protected void Button1_Click(object sender, EventArgs e)
     {
 
-        string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
-        string contentType = FileUpload1.PostedFile.ContentType;
-        string srno = serialnumber.Value;
-        using (Stream fs = FileUpload1.PostedFile.InputStream)
+        if (serialnumber.Value != string.Empty)
         {
-            using (BinaryReader br = new BinaryReader(fs))
+            if (FileUpload1.HasFile == true)
             {
-                byte[] bytes = br.ReadBytes((Int32)fs.Length);
-                double file_size = fs.Length / 1024;
-                string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
+                string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
+                string contentType = FileUpload1.PostedFile.ContentType;
+                string srno = serialnumber.Value;
+                using (Stream fs = FileUpload1.PostedFile.InputStream)
                 {
-                    string query = "insert into Upload_Log values (@Name, @Content_Type, @Data, @Size,@serialno)";
-                    using (SqlCommand cmd = new SqlCommand(query))
+                    using (BinaryReader br = new BinaryReader(fs))
                     {
-                        cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@Name", filename);
-                        cmd.Parameters.AddWithValue("@Content_Type", contentType);
-                        cmd.Parameters.AddWithValue("@Data", bytes);
-                        cmd.Parameters.AddWithValue("@Size", file_size);
-                        cmd.Parameters.AddWithValue("@serialno", srno);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
+                        byte[] bytes = br.ReadBytes((Int32)fs.Length); //file stored in binary format.
+                        double file_size = fs.Length / 1024; //size of the file
+                        string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+                        using (SqlConnection con = new SqlConnection(constr))
+                        {
+                            string query = "insert into Upload_Log values (@Name, @Content_Type, @Data, @Size,@serialno)";
+                            using (SqlCommand cmd = new SqlCommand(query))
+                            {
+                                cmd.Connection = con;
+                                cmd.Parameters.AddWithValue("@Name", filename);
+                                cmd.Parameters.AddWithValue("@Content_Type", contentType);
+                                cmd.Parameters.AddWithValue("@Data", bytes);
+                                cmd.Parameters.AddWithValue("@Size", file_size);
+                                cmd.Parameters.AddWithValue("@serialno", srno);
+                                con.Open();
+                                cmd.ExecuteNonQuery();
+                                con.Close();
+                            }
+                        }
                     }
+
                 }
+               status.Text = "File Uploaded"; 
             }
+            else
+                status.Text = "Select FileName";
+         //Response.Redirect(Request.Url.AbsoluteUri);
         }
-        Response.Redirect(Request.Url.AbsoluteUri);
+        else
+        {
+            status.Text = "Enter the Serial Number";
+        }
     }
-
-
-
+    string filename;
     protected void search_File(object sender, EventArgs e)
     {
-        string filename = Text2.Value;
-        // GridView1.Columns[0].HeaderText = "Choose";
+        filename = Text2.Value;
         BindGrid(filename);
     }
+
     string selectedFilename;
+    static string selectedFileID;
+    string textToSearch;
+
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         selectedFilename = GridView1.SelectedRow.Cells[3].Text;
-        //if(selectedFilename != null)
-        //{
-        //    result.Text = "Selcted file : " + selectedFilename;
-        //}
+        selectedFileID = GridView1.SelectedRow.Cells[1].Text;
+
+        result.Text = selectedFileID;
     }
     protected void search_Content(object sender, EventArgs e)
     {
-        if (selectedFilename != null)
+        textToSearch = Text1.Value;
+        string fileid = selectedFileID;
+        string root = @"C:\Users\diksham\Desktop\temp";
+
+        System.IO.Directory.CreateDirectory(root);
+
+        // Create a file name for the file you want to create.
+        string fileName = "MyCurrentLogs.txt";
+
+        string pathString = System.IO.Path.Combine(root, fileName);
+
+        // Verify the path that you have constructed.
+        Console.WriteLine("Path to my file: {0}\n", root);
+
+        string outputPath = pathString;
+
+        string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        using (SqlConnection con = new SqlConnection(constr))
         {
-            string file = Text1.Value;
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+                cmd.CommandText = "select data from Upload_Log where id = " + fileid;
+                cmd.Connection = con;
+                con.Open();
+                // Console.WriteLine("hello im here");
+                using (var reader = cmd.ExecuteReader(CommandBehavior.SequentialAccess))
+                {
+                    if (reader.Read())
+                    {
+                        // again, we map the result to an SqlBytes instance
+                        var bytes = reader.GetSqlBytes(0); // column ordinal, here 1st column -> 0
+
+                        // I use a file stream, but that could be any stream (asp.net, memory, etc.)
+                        if (!System.IO.File.Exists(outputPath))
+                        {
+                            using (System.IO.FileStream fs = System.IO.File.Create(outputPath))
+                            {
+
+                            }
+                            using (var file = File.OpenWrite(outputPath))
+                            {
+                                bytes.Stream.CopyTo(file);
+                            }
+                        }
 
 
+                    }
+                }
+
+                con.Close();
+            }
         }
+        searchText(outputPath, textToSearch);
+        deleteDir(root, outputPath);
+
+    }
+
+    public void deleteDir(string root, string output)
+    {
+        // ...or by using FileInfo instance method.
+        System.IO.FileInfo fi = new System.IO.FileInfo(output);
+        try
+        {
+            fi.Delete();
+        }
+        catch (System.IO.IOException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        // ...or with DirectoryInfo instance method.
+        System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(root);
+        // Delete this dir and all subdirs.
+        try
+        {
+            di.Delete(true);
+        }
+        catch (System.IO.IOException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    public void searchText(string pathToFile, string textToSearch)
+    {
+        string cmnd = commands.SelectedIndex.ToString();
+
+        foreach (var line in File.ReadLines(pathToFile))
+        {
+            if (line.Contains(textToSearch) == true)
+            {
+                result.Text = "Found";
+            }
+            else
+            {
+                result.Text = "Not Found";
+
+            }
+        }
+
+
     }
 
 

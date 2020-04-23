@@ -65,6 +65,6 @@ public partial class pages_Disksearch : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        Response.Redirect("TestDefault.aspx");
+        Response.Redirect("~/Test/TestDefault.aspx");
     }
 }
