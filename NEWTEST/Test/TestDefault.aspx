@@ -24,16 +24,18 @@
         <div class="container-fluid h-100">
             <div class="row h-100">
                 <div class="col-md-5 h-100" align="center" style="padding: 10px 20px 10px 20px">
-                    <asp:Label ID="Label3" runat="server" Text="CASE SEARCH"></asp:Label>
-                    <table class="w3-card w3-padding-24" align="center" style="border-style: outset; border-width: medium; border-collapse: separate; border-spacing: 15px; width: 70%; font-family: 'Bodoni MT';">
+                    <asp:Label ID="Label3" runat="server" Text="UPLOAD AND SEARCH"></asp:Label>
+                    <br />
+                    <br />
+                    <table class="w3-card w3-padding-24" align="center" style="border-collapse: separate; border-spacing: 15px; width: 70%; font-family: 'Bodoni MT';">
                         <tr class="w3-center">
                             <td>
-                                <input type="text" class="input-text autoclear" runat="server" id="serialnumber" placeholder="SerialNumber" style="width: 80%" />
+                                <input type="text" class="input-text autoclear" runat="server" id="serialnumber" placeholder="SerialNumber" style="width: 80%; padding: 3px 7px 3px 7px" />
                             </td>
                         </tr>
                         <tr class="w3-center">
                             <td>
-                                <input id="partnerserialnumber" type="text" class="input-text autoclear" placeholder="Partner SerialNumber" runat="server" style="width: 80%" />
+                                <input id="partnerserialnumber" type="text" class="input-text autoclear" placeholder="Partner SerialNumber" runat="server" style="width: 80%; padding: 3px 7px 3px 7px" />
                             </td>
                         </tr>
                         <tr class="w3-center">
@@ -43,24 +45,24 @@
                         </tr>
                         <tr class="w3-center">
                             <td>
-                                <asp:Button ID="Button1" runat="server" Text="Upload" OnClick="Button1_Click" Width="75%" />
+                                <asp:Button ID="Button1" runat="server" Text="Upload" Width="75%" OnClick="Upload" />
                             </td>
                         </tr>
                         <tr class="d-flex">
                             <td class="d-inline-flex p-3" colspan="3" rowspan="2">
                                 <asp:Label ID="Label1" runat="server" Text="Upload status: "></asp:Label>
                                 &nbsp &nbsp
-                                <asp:Label ID="status" runat="server" Text="aa" ForeColor="Blue"></asp:Label>
-                               
+                                <asp:Label ID="status" runat="server" ForeColor="Blue"></asp:Label>
+
                             </td>
                         </tr>
 
                     </table>
                     <hr />
-                    <table class="w3-card w3-padding-24" align="center" style="border-style: outset; border-width: medium; border-collapse: separate; border-spacing: 15px; width: 70%; font-family: 'Bodoni MT';">
+                    <table class="w3-card w3-padding-24" align="center" style="border-collapse: separate; border-spacing: 20px; width: 70%; font-family: 'Bodoni MT';">
                         <tr class="w3-center">
                             <td>
-                                <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" style="width: 85%; padding: 3px 7px 3px 7px" />
+                                <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" autocomplete="off" style="width: 85%; padding: 3px 7px 3px 7px" />
                             </td>
                             <td>
                                 <asp:Button ID="Button2" runat="server" Text=" File Search" Width="80%" OnClick="search_File" />
@@ -69,7 +71,6 @@
                         <tr class="w3-center">
                             <td class="d-inline-flex p-2">&nbsp
                                  <asp:DropDownList ID="commands" placeholder="Commands" runat="server" Height="23pt" Width="150pt" CausesValidation="True">
-                                     <asp:ListItem Selected="True" Text="Select"></asp:ListItem>
                                      <asp:ListItem Text="sysconfig -a" Enabled="True" Value="sysconfig -a"> sysconfig -a</asp:ListItem>
                                      <asp:ListItem Text=" sysconfig -r" Enabled="True" Value="sysconfig -r">sysconfig -r</asp:ListItem>
                                  </asp:DropDownList>&nbsp;&nbsp;
@@ -78,26 +79,32 @@
                                 <input type="text" class="input-text autoclear" placeholder="Search Disk" runat="server" id="Text1" style="width: 85%; padding: 3px 7px 3px 7px" />
                             </td>
                         </tr>
-                        <tr class="w3-center">
-                            <td rowspan="2">
-                                <asp:Button ID="Button3" runat="server" Text="Search" Width="90%" OnClick="search_Content" CssClass="w3-center" />
+                        <tr class="w3-center" style="padding-left:10px">
+                            <td  colspan="2">
+                                <asp:Button ID="Button3" runat="server" Text="Search" Width="100%" OnClick="search_Content"  CssClass="w3-center"  />
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="result" runat="server" Text="Label" ForeColor="PaleVioletRed"></asp:Label>
+                        
+                            
+                        
+                        <tr class="w3-center" style="padding-left:10px">
+                            <td colspan="2">
+                               
+                                <asp:Label ID="result" runat="server"  ForeColor="PaleVioletRed" Font-Bold="True" Font-Size="Medium" Width="70%" Text="OUTPUT"></asp:Label>
                             </td>
                         </tr>
+                        
+                            
+                        
                     </table>
                 </div>
                 <div class="col-sm-1 ">
                     <div class="col offset-2 offset-sm-2 py-2">
-
-                        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True">
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="15" CellSpacing="18" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:CommandField ButtonType="Button" CancelText="" DeleteText="" EditText="" HeaderText="Choose" InsertText="" NewText="" ShowSelectButton="True" />
-                                <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" >
+                                <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True">
                                     <FooterStyle Wrap="False" />
                                     <HeaderStyle Width="40px" Wrap="False" />
                                     <ItemStyle Width="20px" Wrap="False" />

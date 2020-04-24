@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
 
 public partial class Test_TestDefault : System.Web.UI.Page
 {
@@ -45,9 +47,8 @@ public partial class Test_TestDefault : System.Web.UI.Page
 
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void Upload(object sender, EventArgs e)
     {
-
         if (serialnumber.Value != string.Empty)
         {
             if (FileUpload1.HasFile == true)
@@ -81,11 +82,11 @@ public partial class Test_TestDefault : System.Web.UI.Page
                     }
 
                 }
-               status.Text = "File Uploaded"; 
+                status.Text = "File Uploaded";
             }
             else
                 status.Text = "Select FileName";
-         //Response.Redirect(Request.Url.AbsoluteUri);
+            //Response.Redirect(Request.Url.AbsoluteUri);
         }
         else
         {
@@ -108,7 +109,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
         selectedFilename = GridView1.SelectedRow.Cells[3].Text;
         selectedFileID = GridView1.SelectedRow.Cells[1].Text;
 
-        result.Text = selectedFileID;
+        //result.Text = "File ID to Search :"+selectedFileID;
     }
     protected void search_Content(object sender, EventArgs e)
     {
@@ -196,24 +197,79 @@ public partial class Test_TestDefault : System.Web.UI.Page
         }
     }
 
-    public void searchText(string pathToFile, string textToSearch)
+    public void searchText(string pathToFile, string diskaddr)
     {
-        string cmnd = commands.SelectedIndex.ToString();
+        string cmnd = commands.SelectedItem.Value; ;
+        //foreach (var line in File.ReadLines(pathToFile))
+        //{
+        //    line.Trim();
+        //    if (line.Contains(cmnd))
+        //    {
+        //        result.Text = "Found";
+        //        break;
+        //    }
+        //    else
+        //    {
+        //        result.Text = "Not Found";
+        //        break;
 
-        foreach (var line in File.ReadLines(pathToFile))
+        //    }
+        //}
+
+        searchCmdInFile(cmnd, diskaddr, pathToFile);
+
+    }
+
+    public void searchCmdInFile(string cmnd, string diskaddr, string path)
+    {
+        bool flag = false;
+
+        using (StreamReader reader = new StreamReader(path))
         {
-            if (line.Contains(textToSearch) == true)
+            string line;
+            while ((line = reader.ReadLine()) != null)
             {
-                result.Text = "Found";
-            }
-            else
-            {
-                result.Text = "Not Found";
-
+                if (line.Contains(cmnd))
+                {
+                    result.ForeColor = Color.Green;
+                    result.Visible = true;
+                    //result.Text = "Command Found";
+                    flag = true;
+                    break;
+                }
+                else
+                {
+                    result.Visible = true;
+                    result.ForeColor = Color.Red;
+                    result.Text = "Command Not Found";
+                }
             }
         }
 
-
+        if (flag)
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.Contains(diskaddr))
+                    {
+                        result.ForeColor = Color.Green;
+                        result.Visible = true;
+                        result.Text = " Disk Found \n " + diskaddr +"\n" +line;
+                        break;
+                    }
+                    else
+                    {
+                        result.Visible = true;
+                        result.ForeColor = Color.Red;
+                        result.Text = "Disk Not Found !!";
+                    }
+                }
+            }
+        }
+        
     }
 
 
