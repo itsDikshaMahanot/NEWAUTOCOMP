@@ -76,7 +76,6 @@
     <div class="row flex-xl-nowrap " style="padding-left: 0.3cm; padding-right: 0.3cm;" draggable="false">
         <div style="color: blue; padding: 2%">
         </div>
-
         <div style="width: 70%;">
             <div class="row">
                 <div class="col-sm-4">
@@ -107,21 +106,16 @@
                     <div class="card shadow p-3 mb-5 bg-white rounded" style="align-self: center;">
                         <div class="card-body" style="align-self: center;">
                             <h5 class="card-title" style="letter-spacing: normal; font-size: large; color: #FF9933; text-transform: capitalize; text-align: center;">LINKS</h5>
-                            <a href="https://mysupport.netapp.com/">My Support Page
-                           <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware">Disk-Shelf-Firmware
-                           <br /> <a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Drive-Firmware
-                            <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/system-firmware-diagnostics">System-Firmware-Diagnostics
-                            <br /><a href="https://mysupport.netapp.com/matrix/#welcome">Interoperability Matrix Tool
-                            </a>
+                            <a href="https://mysupport.netapp.com/">My Support Page</a>
+                           <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware">Disk-Shelf-Firmware</a>
+                           <br /> <a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Drive-Firmware</a>
+                            <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/system-firmware-diagnostics">System-Firmware-Diagnostics</a>
+                            <br /><a href="https://mysupport.netapp.com/matrix/#welcome">Interoperability Matrix Tool  </a>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-
-
 </asp:Content>
 

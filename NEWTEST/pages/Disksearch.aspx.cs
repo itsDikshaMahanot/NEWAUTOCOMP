@@ -13,6 +13,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
     string query;
     protected void Page_Load(object sender, EventArgs e)
     {
+       
         string connetionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         SqlConnection con;
         SqlDataAdapter da;
@@ -22,25 +23,23 @@ public partial class pages_Disksearch : System.Web.UI.Page
         if (!string.IsNullOrEmpty(Request.QueryString.ToString()))
         {
             string srl = Request.QueryString["sr"];
-            string psrl = Request.QueryString["psr"];           
+            string psrl = Request.QueryString["psr"];
             string asup_status = Request.QueryString["asup_status"];
             string category = Request.QueryString["category"];
-            //TESTING QUERY
-            query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed,Link from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "' and [ASUP_Status] ='" + asup_status+ "' and [Cat_ID] ='"+category+"' ";
+
+            query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed,Link from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "' and [ASUP_Status] ='" + asup_status + "' and [Cat_ID] ='" + category + "' ";
 
             cmd = new SqlCommand(query, con);
             da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            GridView1.DataSource = dt;        
-            //Testing Conditions
-
-            if(dt.Rows.Count > 0 && asup_status != string.Empty)
+            GridView1.DataSource = dt;
+            if (dt.Rows.Count > 0 && asup_status != string.Empty)
             {
-                if(asup_status.Equals("ON") || asup_status.Equals("AOD"))
+                if (asup_status.Equals("ON") || asup_status.Equals("AOD"))
                 {
                     GridView1.DataBind();
-                    Label2.Text = " Check All cases Here !! <br/> " +" Click on the link to close the case !! " ;
+                    Label2.Text = " Check All cases Here !! <br/> " + " Click on the link to close the case !! ";
                 }
 
                 else if (asup_status.Equals("OFF"))
@@ -67,4 +66,20 @@ public partial class pages_Disksearch : System.Web.UI.Page
     {
         Response.Redirect("~/Test/TestDefault.aspx");
     }
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            string idd = ((Label)e.Row.FindControl("Case_No.")).Text;
+            Console.Write(idd);
+            e.Row.Attributes["onclick"] = "https://smartsolvecm.netapp.com/ui/#/case/";
+        }
+    }
+
+    //protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    string caseNumber = GridView1.SelectedRow.Cells[0].Text;
+    //    Console.Write(caseNumber);
+    //    Response.Redirect("https://smartsolvecm.netapp.com/ui/#/case/" + caseNumber);
+    //}
 }

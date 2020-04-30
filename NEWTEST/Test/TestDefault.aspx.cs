@@ -113,7 +113,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
     }
     protected void search_Content(object sender, EventArgs e)
     {
-        textToSearch = Text1.Value;
+        //textToSearch = Text1.Value;
         string fileid = selectedFileID;
         string root = @"C:\Users\diksham\Desktop\temp";
 
@@ -166,7 +166,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                 con.Close();
             }
         }
-        searchText(outputPath, textToSearch);
+        searchText(outputPath);
         deleteDir(root, outputPath);
 
     }
@@ -197,81 +197,71 @@ public partial class Test_TestDefault : System.Web.UI.Page
         }
     }
 
-    public void searchText(string pathToFile, string diskaddr)
-    {
-        string cmnd = commands.SelectedItem.Value; ;
-        //foreach (var line in File.ReadLines(pathToFile))
-        //{
-        //    line.Trim();
-        //    if (line.Contains(cmnd))
-        //    {
-        //        result.Text = "Found";
-        //        break;
-        //    }
-        //    else
-        //    {
-        //        result.Text = "Not Found";
-        //        break;
 
-        //    }
-        //}
-
-        searchCmdInFile(cmnd, diskaddr, pathToFile);
-
-    }
-
-    public void searchCmdInFile(string cmnd, string diskaddr, string path)
+    public void searchText(string pathToFile)
     {
         bool flag = false;
 
-        using (StreamReader reader = new StreamReader(path))
+        string check = "sysconfig -a";
+        string text0serch = "(Failed)";
+
+        using (StreamReader reader = new StreamReader(pathToFile))
         {
             string line;
             while ((line = reader.ReadLine()) != null)
             {
-                if (line.Contains(cmnd))
+
+                if (line.Contains(check))
                 {
-                    result.ForeColor = Color.Green;
-                    result.Visible = true;
-                    //result.Text = "Command Found";
                     flag = true;
                     break;
                 }
-                else
-                {
-                    result.Visible = true;
-                    result.ForeColor = Color.Red;
-                    result.Text = "Command Not Found";
-                }
+                
             }
+
         }
 
-        if (flag)
+        if (flag == true)
         {
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    if (line.Contains(diskaddr))
+                    string cmndregex = @"System Serial Number:\s*[0-9]*\s[(a-zA-Z0-9-_)]*";
+                    Regex myRegex = new Regex(cmndregex);
+                    Console.WriteLine(line);
+                    Match m = myRegex.Match(line);
+
+                    if (m.Success)
                     {
-                        result.ForeColor = Color.Green;
-                        result.Visible = true;
-                        result.Text = " Disk Found \n " + diskaddr +"\n" +line;
+                        result.Text = m.ToString();
                         break;
                     }
-                    else
+                }
+
+            }
+            using (StreamReader reader = new StreamReader(pathToFile))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string textregex = @"\d+\.?\d*\s?[:]\s\w*\s+[A-Z0-9_]*\s[A-Z0-9]+\s\d+\.\w*\s[0-9A-Za-z/]+\s[(][Failed]+[)]*";
+                    Regex diskregex = new Regex(textregex);
+                    Console.WriteLine(line);
+                    Match ma = diskregex.Match(line);
+                    if (ma.Success)
                     {
-                        result.Visible = true;
-                        result.ForeColor = Color.Red;
-                        result.Text = "Disk Not Found !!";
+                        result.Text +=  "<br/>"+ma.ToString();
+                        
                     }
                 }
-            }
-        }
-        
-    }
 
+            }
+            
+        }
+
+    }
 
 }
 

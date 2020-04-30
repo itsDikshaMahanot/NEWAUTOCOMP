@@ -62,35 +62,35 @@
                     <table class="w3-card w3-padding-24" align="center" style="border-collapse: separate; border-spacing: 20px; width: 70%; font-family: 'Bodoni MT';">
                         <tr class="w3-center">
                             <td>
-                                <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" autocomplete="off" style="width: 85%; padding: 3px 7px 3px 7px" />
+                                <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" autocomplete="off" style="width: 85%; padding: 3px 7px 3px 7px" value="850000217840" />
                             </td>
                             <td>
-                                <asp:Button ID="Button2" runat="server" Text=" File Search" Width="80%" OnClick="search_File" />
+                                <asp:Button ID="Button2" runat="server" Text=" File Search" Width="90%" OnClick="search_File" />
                             </td>
                         </tr>
                         <tr class="w3-center">
-                            <td class="d-inline-flex p-2">&nbsp
+                            <%--<td class="d-inline-flex p-2">&nbsp
                                  <asp:DropDownList ID="commands" placeholder="Commands" runat="server" Height="23pt" Width="150pt" CausesValidation="True">
                                      <asp:ListItem Text="sysconfig -a" Enabled="True" Value="sysconfig -a"> sysconfig -a</asp:ListItem>
                                      <asp:ListItem Text=" sysconfig -r" Enabled="True" Value="sysconfig -r">sysconfig -r</asp:ListItem>
                                  </asp:DropDownList>&nbsp;&nbsp;
-                            </td>
-                            <td>
+                            </td>--%>
+                            <%--<td>
                                 <input type="text" class="input-text autoclear" placeholder="Search Disk" runat="server" id="Text1" style="width: 85%; padding: 3px 7px 3px 7px" />
-                            </td>
+                            </td>--%>
                         </tr>
-                        <tr class="w3-center" style="padding-left:10px">
-                            <td  colspan="2">
-                                <asp:Button ID="Button3" runat="server" Text="Search" Width="100%" OnClick="search_Content"  CssClass="w3-center"  />
+                        <tr class="w3-center">
+                            <td style="padding-left:20px; padding-right:10px">
+                                <asp:Button ID="sysconfigA" runat="server" Text="SYSCONFIG -A" Width="80%" OnClick="search_Content"  CssClass="w3-left" />
                             </td>
-                        </tr>
-                        
-                            
-                        
+                            <td style="padding-left:10px;padding-right:20px">
+                                <asp:Button ID="sysconfigR" runat="server" Text="SYSCONFIG -R" Width="95%" CssClass="w3-left" />
+                            </td>
+                        </tr>                                            
                         <tr class="w3-center" style="padding-left:10px">
-                            <td colspan="2">
-                               
-                                <asp:Label ID="result" runat="server"  ForeColor="PaleVioletRed" Font-Bold="True" Font-Size="Medium" Width="70%" Text="OUTPUT"></asp:Label>
+                            <td colspan="2">  
+                                RESULT : <br />
+                                <asp:Label ID="result" runat="server"  ForeColor="PaleVioletRed" Font-Bold="True" Font-Size="Medium" Width="90%" CssClass="w3-padding-24"></asp:Label>
                             </td>
                         </tr>
                         
@@ -100,7 +100,7 @@
                 </div>
                 <div class="col-sm-1 ">
                     <div class="col offset-2 offset-sm-2 py-2">
-                        <asp:GridView ID="GridView1" runat="server" CellPadding="15" CellSpacing="18" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True">
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="5" CellSpacing="12" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:CommandField ButtonType="Button" CancelText="" DeleteText="" EditText="" HeaderText="Choose" InsertText="" NewText="" ShowSelectButton="True" />

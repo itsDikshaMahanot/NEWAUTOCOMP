@@ -30,21 +30,23 @@
             /*margin-left:400px;
             margin-top:50px;*/
         }
+
             .button:hover {
                 background-color: #3e8e41
             }
+
             .button:active {
                 background-color: #3e8e41;
                 box-shadow: 0 5px #666;
                 transform: translateY(4px);
             }
-            
+
         #Second {
             margin-top: 50px;
         }
     </style>
 
-    <script>  //code for src to come in iframe 
+    <%--    <script>  //code for src to come in iframe 
         $(document).ready(function () {
             $("a").click(function (e) {
                 e.preventDefault();
@@ -53,13 +55,12 @@
                 $("#myFrame").attr("src", $(this).attr("href"));
             })
         });
-       
-    </script>
+        </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="row flex-xl-nowrap " style="padding-left: 0.5cm; padding-right: 0.5cm;">
-    <div id="Second" class="row col-xl-12">
-        <iframe name="myFrame" src="Disk.aspx" id="myFrame" style="height: 500%; width: 250%; border: none; background-color: #ffffff;"></iframe>
-    </div>
+        <div id="Second" class="row col-xl-12">
+            <iframe name="myFrame" src="Disk.aspx" id="myFrame" style="height: 500%; width: 250%; border: none; background-color: #ffffff;"></iframe>
         </div>
+    </div>
 </asp:Content>
