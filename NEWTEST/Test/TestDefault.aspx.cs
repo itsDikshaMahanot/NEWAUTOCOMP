@@ -98,6 +98,13 @@ public partial class Test_TestDefault : System.Web.UI.Page
     {
         filename = Text2.Value;
         BindGrid(filename);
+        if (result.Visible == true || sysconfigR_Result.Visible == true)
+        {
+            GridView1.Visible = true;
+            result.Visible = false;
+            sysconfigR_Result.Visible = false;
+        }
+
     }
 
     string selectedFilename;
@@ -167,6 +174,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
             }
         }
         searchText(outputPath);
+        sysconfigR_Click(outputPath);
         deleteDir(root, outputPath);
 
     }
@@ -203,7 +211,6 @@ public partial class Test_TestDefault : System.Web.UI.Page
         bool flag = false;
 
         string check = "sysconfig -a";
-        string text0serch = "(Failed)";
 
         using (StreamReader reader = new StreamReader(pathToFile))
         {
@@ -216,7 +223,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                     flag = true;
                     break;
                 }
-                
+
             }
 
         }
@@ -235,11 +242,32 @@ public partial class Test_TestDefault : System.Web.UI.Page
 
                     if (m.Success)
                     {
-                        result.Text = m.ToString();
+                        GridView1.Visible = false;
+                        result.Visible = true;
+                        result.Text = "RESULT :<br/>" + m.ToString();
                         break;
                     }
+
                 }
 
+            }
+
+            using (StreamReader reader = new StreamReader(pathToFile))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string adapter = @"slot 0: SAS Host Adapter\s[0-9a-z]*\s[(][A-Za-z0-9]*[-][A-Za-z]*\s[A-Z0-9]*\s[a-z.]*\s[A-Z,]*\s[A-Z,]*\s[<UP>]+[<DOWN>)]*";
+                    Regex adpregex = new Regex(adapter);
+                    Match adm = adpregex.Match(line);
+                    if (adm.Success)
+                    {
+                        GridView1.Visible = false;
+                        result.Visible = true;
+                        result.Text += "<br/> <br/>" + adm.ToString();
+
+                    }
+                }
             }
             using (StreamReader reader = new StreamReader(pathToFile))
             {
@@ -252,18 +280,85 @@ public partial class Test_TestDefault : System.Web.UI.Page
                     Match ma = diskregex.Match(line);
                     if (ma.Success)
                     {
-                        result.Text +=  "<br/>"+ma.ToString();
-                        
+                        GridView1.Visible = false;
+                        result.Visible = true;
+                        generate_Temp.Visible = true;
+                        result.Text += "<br/> <br/>" + ma.ToString();
+
                     }
+
                 }
 
             }
-            
         }
-
     }
 
+
+
+    protected void sysconfigR_Click(string pathToFile)
+    {
+        bool flag = false;
+        string check = "sysconfig -r";
+
+        using (StreamReader reader = new StreamReader(pathToFile))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+
+                if (line.Contains(check))
+                {
+                    flag = true;
+                    break;
+                }
+
+            }
+
+        }
+        if (flag == true)
+        {
+            using (StreamReader reader = new StreamReader(pathToFile))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string chkgex = @"Broken disks";
+                    Regex chregex = new Regex(chkgex);
+                    Console.WriteLine(line);
+                    Match m1 = chregex.Match(line);
+                    if (m1.Success)
+                    {
+                        GridView1.Visible = false;
+                        result.Visible = false;
+                        sysconfigR_Result.Visible = true;
+                        generate_Temp.Visible = true;
+                        sysconfigR_Result.Text = m1.ToString();
+                    }
+                }
+            }
+            using (StreamReader reader = new StreamReader(pathToFile))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string brokendisk = @"^[failed]*\s*[0-9a-z.]+\s*[0-9a-z]+\s*\w*\s*[0-9]+\s*[A-Z:]*\s+[0-9]*\s*\w*\s[0-9]*\s[0-9/]*\s[0-9/]*";
+                    Regex chregex = new Regex(brokendisk);
+                    Console.WriteLine(line);
+                    Match m2 = chregex.Match(line);
+                    if (m2.Success)
+                    {
+                        GridView1.Visible = false;
+                        result.Visible = false;
+                        sysconfigR_Result.Visible = true;
+                        generate_Temp.Enabled = true;
+                        sysconfigR_Result.Text +="<br/> <br/>" + m2.ToString();
+                    }
+                }
+            }
+        }
+    }
 }
+
 
 
 

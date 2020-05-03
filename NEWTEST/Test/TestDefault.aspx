@@ -21,9 +21,9 @@
 </head>
 <body>
     <form id="form1" runat="server" font-names="Bodoni MT">
-        <div class="container-fluid h-100">
-            <div class="row h-100">
-                <div class="col-md-5 h-100" align="center" style="padding: 10px 20px 10px 20px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5" align="center" style="padding: 10px 20px 10px 20px">
                     <asp:Label ID="Label3" runat="server" Text="UPLOAD AND SEARCH"></asp:Label>
                     <br />
                     <br />
@@ -53,19 +53,17 @@
                                 <asp:Label ID="Label1" runat="server" Text="Upload status: "></asp:Label>
                                 &nbsp &nbsp
                                 <asp:Label ID="status" runat="server" ForeColor="Blue"></asp:Label>
-
                             </td>
                         </tr>
-
                     </table>
                     <hr />
                     <table class="w3-card w3-padding-24" align="center" style="border-collapse: separate; border-spacing: 20px; width: 70%; font-family: 'Bodoni MT';">
                         <tr class="w3-center">
                             <td>
-                                <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" autocomplete="off" style="width: 85%; padding: 3px 7px 3px 7px" value="850000217840" />
+                                <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" style="width: 85%; padding: 3px 7px 3px 7px" autocomplete="off" value="850000217840" />
                             </td>
                             <td>
-                                <asp:Button ID="Button2" runat="server" Text=" File Search" Width="90%" OnClick="search_File" />
+                                <asp:Button ID="Button2" runat="server" Text=" File Search" Width="90%" OnClick="search_File" OnClientClick="search_File" />
                             </td>
                         </tr>
                         <tr class="w3-center">
@@ -80,27 +78,26 @@
                             </td>--%>
                         </tr>
                         <tr class="w3-center">
-                            <td style="padding-left:20px; padding-right:10px">
-                                <asp:Button ID="sysconfigA" runat="server" Text="SYSCONFIG -A" Width="80%" OnClick="search_Content"  CssClass="w3-left" />
+                            <td style="padding-left: 15px; padding-right: 10px">
+                                <asp:Button ID="sysconfigA" runat="server" Text="SYSCONFIG -A" Width="98%" OnClick="search_Content" CssClass="w3-left" />
                             </td>
-                            <td style="padding-left:10px;padding-right:20px">
-                                <asp:Button ID="sysconfigR" runat="server" Text="SYSCONFIG -R" Width="95%" CssClass="w3-left" />
-                            </td>
-                        </tr>                                            
-                        <tr class="w3-center" style="padding-left:10px">
-                            <td colspan="2">  
-                                RESULT : <br />
-                                <asp:Label ID="result" runat="server"  ForeColor="PaleVioletRed" Font-Bold="True" Font-Size="Medium" Width="90%" CssClass="w3-padding-24"></asp:Label>
+                            <td style="padding-left: 10px; padding-right: 20px">
+                                <asp:Button ID="sysconfigR" runat="server" Text="SYSCONFIG -R" Width="108%" CssClass="w3-left" OnClick="search_Content" />
                             </td>
                         </tr>
-                        
-                            
-                        
+                        <tr>
+                       </tr>
+                        <tr>
+                                <td style="padding-left: 28%">
+                                    <asp:Button ID="generate_Temp" runat="server" Text="Generate Template" Visible="true" CssClass="w3-center" Enabled="False" />
+                                </td>
+                            </tr>
                     </table>
+
                 </div>
-                <div class="col-sm-1 ">
-                    <div class="col offset-2 offset-sm-2 py-2">
-                        <asp:GridView ID="GridView1" runat="server" CellPadding="5" CellSpacing="12" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True">
+                <div class="col-xl-7" style="padding: 10px 20px 10px 20px; margin-top: 2%;">
+                    <div class="col  py-2" style="height: 70%; overflow: auto">
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="5" CellSpacing="12" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True" Height="50%">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:CommandField ButtonType="Button" CancelText="" DeleteText="" EditText="" HeaderText="Choose" InsertText="" NewText="" ShowSelectButton="True" />
@@ -131,6 +128,31 @@
                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
+                        <table class="table table-striped w-auto">
+                            <thead>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td colspan="1">
+                                        <asp:Label ID="result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT :" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
+                                    </td>
+                                    <th scope="row"></th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                        <table class="table table-striped w-auto">
+                            <thead>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td colspan="1">
+                                        <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT :" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
+                                    </td>
+                                    <th scope="row"></th>
+                                </tr>
+                            </thead>
+                            
+                            
+                        </table>
                     </div>
                 </div>
             </div>
