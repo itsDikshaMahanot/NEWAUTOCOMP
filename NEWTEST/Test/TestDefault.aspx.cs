@@ -14,8 +14,16 @@ using System.Drawing;
 
 public partial class Test_TestDefault : System.Web.UI.Page
 {
+
+    string selectedFilename;
+    static string selectedFileID;
+    string textToSearch;
+    string outputFilePath;
+    string root = @"C:\Users\diksham\Desktop\temp";
+
     protected void Page_Load(object sender, EventArgs e)
     {
+
         {
             if (IsPostBack)
             {
@@ -107,9 +115,6 @@ public partial class Test_TestDefault : System.Web.UI.Page
 
     }
 
-    string selectedFilename;
-    static string selectedFileID;
-    string textToSearch;
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -118,11 +123,11 @@ public partial class Test_TestDefault : System.Web.UI.Page
 
         //result.Text = "File ID to Search :"+selectedFileID;
     }
-    protected void search_Content(object sender, EventArgs e)
+    protected void search_FileFromSerialNumber()
     {
         //textToSearch = Text1.Value;
         string fileid = selectedFileID;
-        string root = @"C:\Users\diksham\Desktop\temp";
+
 
         System.IO.Directory.CreateDirectory(root);
 
@@ -134,7 +139,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
         // Verify the path that you have constructed.
         Console.WriteLine("Path to my file: {0}\n", root);
 
-        string outputPath = pathString;
+        outputFilePath = pathString;
 
         string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         using (SqlConnection con = new SqlConnection(constr))
@@ -154,18 +159,17 @@ public partial class Test_TestDefault : System.Web.UI.Page
                         var bytes = reader.GetSqlBytes(0); // column ordinal, here 1st column -> 0
 
                         // I use a file stream, but that could be any stream (asp.net, memory, etc.)
-                        if (!System.IO.File.Exists(outputPath))
+                        if (!System.IO.File.Exists(outputFilePath))
                         {
-                            using (System.IO.FileStream fs = System.IO.File.Create(outputPath))
+                            using (System.IO.FileStream fs = System.IO.File.Create(outputFilePath))
                             {
 
                             }
-                            using (var file = File.OpenWrite(outputPath))
+                            using (var file = File.OpenWrite(outputFilePath))
                             {
                                 bytes.Stream.CopyTo(file);
                             }
                         }
-
 
                     }
                 }
@@ -173,9 +177,8 @@ public partial class Test_TestDefault : System.Web.UI.Page
                 con.Close();
             }
         }
-        searchText(outputPath);
-        sysconfigR_Click(outputPath);
-        deleteDir(root, outputPath);
+
+
 
     }
 
@@ -206,7 +209,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
     }
 
 
-    public void searchText(string pathToFile)
+    public void sysconfig_a_Search(string pathToFile)
     {
         bool flag = false;
 
@@ -257,15 +260,20 @@ public partial class Test_TestDefault : System.Web.UI.Page
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    string adapter = @"slot 0: SAS Host Adapter\s[0-9a-z]*\s[(][A-Za-z0-9]*[-][A-Za-z]*\s[A-Z0-9]*\s[a-z.]*\s[A-Z,]*\s[A-Z,]*\s[<UP>]+[<DOWN>)]*";
+                    string adapter = @"slot 0:\s[A-Z]+\s[A-Za-z]+\s[A-Za-z]+\s[0-9a-z]+\s[(][A-Za-z-]+\s[A-Z0-9]+\s[a-z.]+\s[A-Z,]+\s[A-Z,]+\s<.+>[)]";
+                    //string adapter = @"slot 0:\s[A-Z]+\s[A-Za-z]+\s[A-Za-z]+\s[0-9a-z]+\s[(][A-Za-z-]+\s[A-Z0-9]+\s[a-z.]+\s[A-Z,]+\s[A-Z,]+\s[<][A-Z]+[>][)]";
                     Regex adpregex = new Regex(adapter);
                     Match adm = adpregex.Match(line);
                     if (adm.Success)
                     {
                         GridView1.Visible = false;
                         result.Visible = true;
-                        result.Text += "<br/> <br/>" + adm.ToString();
+                        if (line.Contains("&lt;UP&gt;"))
+                            result.Text += "<br/> <br/>" + adm.ToString() + "&lt;UP&gt;";
+                        if (line.Contains("&lt;DOWN&gt;"))
+                            result.Text += "<br/> <br/>" + adm.ToString() + "&lt;UP&gt;";
 
+                        result.Text += "<br/> <br/>" + adm.ToString() + "&lt;UP&gt;";
                     }
                 }
             }
@@ -285,6 +293,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                         generate_Temp.Visible = true;
                         result.Text += "<br/> <br/>" + ma.ToString();
 
+
                     }
 
                 }
@@ -292,13 +301,12 @@ public partial class Test_TestDefault : System.Web.UI.Page
             }
         }
     }
-
-
-
-    protected void sysconfigR_Click(string pathToFile)
+   
+    protected void sysconfig_r_Search(string pathToFile)
     {
         bool flag = false;
         string check = "sysconfig -r";
+
 
         using (StreamReader reader = new StreamReader(pathToFile))
         {
@@ -324,15 +332,14 @@ public partial class Test_TestDefault : System.Web.UI.Page
                 {
                     string chkgex = @"Broken disks";
                     Regex chregex = new Regex(chkgex);
-                    Console.WriteLine(line);
                     Match m1 = chregex.Match(line);
                     if (m1.Success)
                     {
                         GridView1.Visible = false;
                         result.Visible = false;
                         sysconfigR_Result.Visible = true;
-                        generate_Temp.Visible = true;
                         sysconfigR_Result.Text = m1.ToString();
+                        break;
                     }
                 }
             }
@@ -341,7 +348,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    string brokendisk = @"^[failed]*\s*[0-9a-z.]+\s*[0-9a-z]+\s*\w*\s*[0-9]+\s*[A-Z:]*\s+[0-9]*\s*\w*\s[0-9]*\s[0-9/]*\s[0-9/]*";
+                    string brokendisk = @"failed\s+[0-9a-z.]+\s+[0-9a-z]+\s+[0-9]+\s+[0-9]+\s+[A-Z:]+\s+[0-9]+\s+[A-Z]+\s+[0-9]+\s+[0-9/]+\s+[0-9/]+";
                     Regex chregex = new Regex(brokendisk);
                     Console.WriteLine(line);
                     Match m2 = chregex.Match(line);
@@ -350,12 +357,39 @@ public partial class Test_TestDefault : System.Web.UI.Page
                         GridView1.Visible = false;
                         result.Visible = false;
                         sysconfigR_Result.Visible = true;
-                        generate_Temp.Enabled = true;
-                        sysconfigR_Result.Text +="<br/> <br/>" + m2.ToString();
+                        sysconfigR_Result.Text += "<br/> <br/>" + m2.ToString();
+
+
                     }
                 }
             }
         }
+    }
+
+    protected void sysconfigA_Click(object sender, EventArgs e)
+    {
+        sysconfigR_Result.Text = "";
+        search_FileFromSerialNumber();
+        sysconfig_a_Search(outputFilePath);
+        generate_Temp.Enabled = true;
+        deleteDir(root, outputFilePath);
+
+
+    }
+
+    protected void sysconfigR_Click(object sender, EventArgs e)
+    {
+        result.Text = "";
+        search_FileFromSerialNumber();
+        sysconfig_r_Search(outputFilePath);
+        generate_Temp.Enabled = true;
+        deleteDir(root, outputFilePath);
+
+    }
+
+
+    protected void generate_Temp_Click(object sender, EventArgs e)
+    {
     }
 }
 

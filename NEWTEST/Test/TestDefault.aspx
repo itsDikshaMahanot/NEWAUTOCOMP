@@ -67,31 +67,18 @@
                             </td>
                         </tr>
                         <tr class="w3-center">
-                            <%--<td class="d-inline-flex p-2">&nbsp
-                                 <asp:DropDownList ID="commands" placeholder="Commands" runat="server" Height="23pt" Width="150pt" CausesValidation="True">
-                                     <asp:ListItem Text="sysconfig -a" Enabled="True" Value="sysconfig -a"> sysconfig -a</asp:ListItem>
-                                     <asp:ListItem Text=" sysconfig -r" Enabled="True" Value="sysconfig -r">sysconfig -r</asp:ListItem>
-                                 </asp:DropDownList>&nbsp;&nbsp;
-                            </td>--%>
-                            <%--<td>
-                                <input type="text" class="input-text autoclear" placeholder="Search Disk" runat="server" id="Text1" style="width: 85%; padding: 3px 7px 3px 7px" />
-                            </td>--%>
-                        </tr>
-                        <tr class="w3-center">
                             <td style="padding-left: 15px; padding-right: 10px">
-                                <asp:Button ID="sysconfigA" runat="server" Text="SYSCONFIG -A" Width="98%" OnClick="search_Content" CssClass="w3-left" />
+                                <asp:Button ID="sysconfigA" runat="server" Text="SYSCONFIG -A" Width="98%" CssClass="w3-left" OnClick="sysconfigA_Click" />
                             </td>
                             <td style="padding-left: 10px; padding-right: 20px">
-                                <asp:Button ID="sysconfigR" runat="server" Text="SYSCONFIG -R" Width="108%" CssClass="w3-left" OnClick="search_Content" />
+                                <asp:Button ID="sysconfigR" runat="server" Text="SYSCONFIG -R" Width="108%" CssClass="w3-left" OnClick="sysconfigR_Click" />
                             </td>
                         </tr>
                         <tr>
-                       </tr>
-                        <tr>
-                                <td style="padding-left: 28%">
-                                    <asp:Button ID="generate_Temp" runat="server" Text="Generate Template" Visible="true" CssClass="w3-center" Enabled="False" />
-                                </td>
-                            </tr>
+                            <td style="padding-left: 28%">
+                                <asp:Button ID="generate_Temp" runat="server" Text="Generate Template" Visible="true" CssClass="w3-center" Enabled="False" OnClick="generate_Temp_Click" />
+                            </td>
+                        </tr>
                     </table>
 
                 </div>
@@ -133,7 +120,7 @@
                                 <tr>
                                     <th scope="row"></th>
                                     <td colspan="1">
-                                        <asp:Label ID="result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT :" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
+                                        <asp:Label ID="result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
                                     </td>
                                     <th scope="row"></th>
                                 </tr>
@@ -145,13 +132,13 @@
                                 <tr>
                                     <th scope="row"></th>
                                     <td colspan="1">
-                                        <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT :" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
+                                        <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
                                     </td>
                                     <th scope="row"></th>
                                 </tr>
                             </thead>
-                            
-                            
+
+
                         </table>
                     </div>
                 </div>

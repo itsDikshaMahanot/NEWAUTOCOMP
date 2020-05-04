@@ -14,19 +14,19 @@
                 <table class="w3-centered auto-style2 w3-card-2" style="border: thin outset #000000; padding: 10px 20px 10px 20px; align-content: center">
                     <tr>
                         <td class="auto-style1" colspan="3">
-                            <asp:TextBox ID="casenumber" placeholder="CaseNumber" runat="server" CssClass="w3-padding-small" Width="280px" AutoCompleteType="Disabled" Text="2008151528"></asp:TextBox>
+                            <asp:TextBox ID="casenumber" placeholder="CaseNumber" runat="server" CssClass="w3-padding-small" Width="280px" AutoCompleteType="Disabled" Text="2008164218"></asp:TextBox>
                         </td>
                     </tr>
 
                     <tr>
                         <td class="auto-style1" colspan="3">
-                            <asp:TextBox ID="serialnumber" placeholder="SerialNumber" runat="server" CssClass="w3-padding-small" Width="280px" AutoCompleteType="Disabled" Text="721908000327"></asp:TextBox>
+                            <asp:TextBox ID="serialnumber" placeholder="SerialNumber" runat="server" CssClass="w3-padding-small" Width="280px" AutoCompleteType="Disabled" Text="791422000040"></asp:TextBox>
                         </td>
                     </tr>
 
                     <tr>
                         <td class="auto-style1" colspan="3">
-                            <asp:TextBox ID="partnerserialnumber" placeholder="PartnerSerialNumber" runat="server" CssClass="w3-padding-small" Width="280px" AutoCompleteType="Disabled" Text="721908000328"></asp:TextBox>
+                            <asp:TextBox ID="partnerserialnumber" placeholder="PartnerSerialNumber" runat="server" CssClass="w3-padding-small" Width="280px" AutoCompleteType="Disabled" Text="621539000263"></asp:TextBox>
                         </td>
                     </tr>
                     <br />

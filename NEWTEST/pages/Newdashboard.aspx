@@ -46,21 +46,33 @@
         }
     </style>
 
-    <%--    <script>  //code for src to come in iframe 
-        $(document).ready(function () {
-            $("a").click(function (e) {
-                e.preventDefault();
-                $("a").removeClass("active");
-                $(this).addClass("active");
-                $("#myFrame").attr("src", $(this).attr("href"));
-            })
-        });
-        </script>--%>
+
+
+   <%-- <script type="application/javascript">
+
+        function resizeIFrameToFitContent( myframe ) {
+
+    iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+    iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+        }
+
+    window.addEventListener('DOMContentLoaded', function(e) {
+
+    var iFrame = document.getElementById( 'myframe' );
+    resizeIFrameToFitContent( iFrame );
+
+    // or, to resize all iframes:
+      var iframes = document.querySelectorAll("myframe");
+         for( var i = 0; i < iframes.length; i++) {
+           resizeIFrameToFitContent( iframes[i] );
+     }
+    } );
+    </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="row flex-xl-nowrap " style="padding-left: 0.5cm; padding-right: 0.5cm;">
         <div id="Second" class="row col-xl-12">
-            <iframe name="myFrame" src="Disk.aspx" id="myFrame" style="height: 500%; width: 250%; border: none; background-color: #ffffff;"></iframe>
+            <iframe name="myFrame" src="Disk.aspx" id="myFrame" scrolling="no" style=border: none;  background-color: #ffffff;" height="350%" width="250%"></iframe>
         </div>
     </div>
 </asp:Content>
