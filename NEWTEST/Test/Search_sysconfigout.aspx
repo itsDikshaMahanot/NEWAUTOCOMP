@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestDefault.aspx.cs" Inherits="Test_TestDefault" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Search_sysconfigout.aspx.cs" Inherits="Test_Search_sysconfigout" %>
 
 
 <!DOCTYPE html>
@@ -63,7 +63,7 @@
                                 <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" style="width: 85%; padding: 3px 7px 3px 7px" autocomplete="off" value="850000217840" />
                             </td>
                             <td>
-                                <asp:Button ID="Button2" runat="server" Text=" File Search" Width="90%" OnClick="search_File" OnClientClick="search_File" />
+                                <asp:Button ID="srchFile" runat="server" Text=" File Search" Width="90%" OnClick="search_File"  />
                             </td>
                         </tr>
                         <tr class="w3-center">
@@ -83,7 +83,7 @@
 
                 </div>
                 <div class="col-xl-7" style="padding: 10px 20px 10px 20px; margin-top: 2%;">
-                    <div class="col  py-2" style="height: 70%; overflow: auto">
+                    <div class="col  py-2" style="height: 100%; overflow: auto">
                         <asp:GridView ID="GridView1" runat="server" CellPadding="5" CellSpacing="12" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True" Height="50%">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
@@ -115,30 +115,16 @@
                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
-                        <table class="table table-striped w-auto">
-                            <thead>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td colspan="1">
-                                        <asp:Label ID="result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
-                                    </td>
-                                    <th scope="row"></th>
-                                </tr>
-                            </thead>
+                        <table class=" w-auto">
 
-                        </table>
-                        <table class="table table-striped w-auto">
-                            <thead>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td colspan="1">
-                                        <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%" BorderStyle="Outset" BorderColor="#666666"></asp:Label>
-                                    </td>
-                                    <th scope="row"></th>
-                                </tr>
-                            </thead>
+                            <tr>
 
-
+                                <td colspan="1">
+                                    <asp:Label ID="result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%"></asp:Label>
+                                    <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%"></asp:Label>
+                                    <asp:Label ID="template" runat="server" ForeColor="#3366FF" Visible="False" Text=" Need to replace the below given Disk: <br/>" ></asp:Label>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>

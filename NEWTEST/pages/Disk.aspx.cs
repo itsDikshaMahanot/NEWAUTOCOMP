@@ -21,7 +21,7 @@ public partial class pages_Disk : System.Web.UI.Page
         else if (aod.Checked == true) asup_status = "AOD";
         else asup_status = "OFF";
         string category = category2.SelectedIndex.ToString();
-        if (casenumber.Text == string.Empty | serialnumber.Text == string.Empty | partnerserialnumber.Text == string.Empty | single.Checked != true & multiple.Checked != true | category2.Items.FindByText(" ") != null)
+        if (casenumber.Text == string.Empty | serialnumber.Text == string.Empty | partnerserialnumber.Text == string.Empty | category2.Items.FindByText(" ") != null)
         {
             Label1.Text = " Required all Fields";
         }

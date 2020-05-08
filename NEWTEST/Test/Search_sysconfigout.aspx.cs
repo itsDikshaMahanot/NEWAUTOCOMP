@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.Collections;
 
-public partial class Test_TestDefault : System.Web.UI.Page
+public partial class Test_Search_sysconfigout : System.Web.UI.Page
 {
 
     string selectedFilename;
@@ -91,6 +92,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
 
                 }
                 status.Text = "File Uploaded";
+                BindGrid(filename);
             }
             else
                 status.Text = "Select FileName";
@@ -100,34 +102,52 @@ public partial class Test_TestDefault : System.Web.UI.Page
         {
             status.Text = "Enter the Serial Number";
         }
+
     }
     string filename;
+
     protected void search_File(object sender, EventArgs e)
     {
+
         filename = Text2.Value;
         BindGrid(filename);
-        if (result.Visible == true || sysconfigR_Result.Visible == true)
+        if (result.Visible == true || sysconfigR_Result.Visible == true || generate_Temp.Enabled == false)
         {
+
             GridView1.Visible = true;
             result.Visible = false;
             sysconfigR_Result.Visible = false;
+            template.Text = "";
+
+
         }
 
     }
+    //Control control;
+    //public void reset(Control control)
+    //{
+    //    foreach (Control x in control.Controls)
+    //    {
+    //        if (x is Label)
+    //        {
+    //            (x as Label).Text = "";
+    //        }
+    //    }
+    //}
+
 
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        selectedFilename = GridView1.SelectedRow.Cells[3].Text;
+        //selectedFilename = GridView1.SelectedRow.Cells[3].Text;
+        GridView1.DataSource = null;
         selectedFileID = GridView1.SelectedRow.Cells[1].Text;
 
         //result.Text = "File ID to Search :"+selectedFileID;
     }
-    protected void search_FileFromSerialNumber()
+    protected void search_FileFromSerialNumber(string selectedFileSerial)
     {
-        //textToSearch = Text1.Value;
-        string fileid = selectedFileID;
-
+        string fileid = selectedFileSerial;
 
         System.IO.Directory.CreateDirectory(root);
 
@@ -180,10 +200,12 @@ public partial class Test_TestDefault : System.Web.UI.Page
 
 
 
+
     }
 
     public void deleteDir(string root, string output)
     {
+
         // ...or by using FileInfo instance method.
         System.IO.FileInfo fi = new System.IO.FileInfo(output);
         try
@@ -196,6 +218,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
         }
 
         // ...or with DirectoryInfo instance method.
+
         System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(root);
         // Delete this dir and all subdirs.
         try
@@ -206,6 +229,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
         {
             Console.WriteLine(e.Message);
         }
+
     }
 
 
@@ -260,8 +284,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    string adapter = @"slot 0:\s[A-Z]+\s[A-Za-z]+\s[A-Za-z]+\s[0-9a-z]+\s[(][A-Za-z-]+\s[A-Z0-9]+\s[a-z.]+\s[A-Z,]+\s[A-Z,]+\s<.+>[)]";
-                    //string adapter = @"slot 0:\s[A-Z]+\s[A-Za-z]+\s[A-Za-z]+\s[0-9a-z]+\s[(][A-Za-z-]+\s[A-Z0-9]+\s[a-z.]+\s[A-Z,]+\s[A-Z,]+\s[<][A-Z]+[>][)]";
+                    string adapter = @"slot 0:\s[A-Z]+\s[A-Za-z]+\s[A-Za-z]+\s[0-9a-z]+\s[(][A-Za-z-\s]+[0-9]+\s[A-Za-z.]+\s[A-Za-z0-9,]+\s[A-Z,]+\s<.+>[)]";
                     Regex adpregex = new Regex(adapter);
                     Match adm = adpregex.Match(line);
                     if (adm.Success)
@@ -290,7 +313,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                     {
                         GridView1.Visible = false;
                         result.Visible = true;
-                        generate_Temp.Visible = true;
+                        generate_Temp.Enabled = false;
                         result.Text += "<br/> <br/>" + ma.ToString();
 
 
@@ -300,8 +323,9 @@ public partial class Test_TestDefault : System.Web.UI.Page
 
             }
         }
+        deleteDir(root, outputFilePath);
     }
-   
+
     protected void sysconfig_r_Search(string pathToFile)
     {
         bool flag = false;
@@ -337,6 +361,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                     {
                         GridView1.Visible = false;
                         result.Visible = false;
+                        template.Visible = false;
                         sysconfigR_Result.Visible = true;
                         sysconfigR_Result.Text = m1.ToString();
                         break;
@@ -356,6 +381,7 @@ public partial class Test_TestDefault : System.Web.UI.Page
                     {
                         GridView1.Visible = false;
                         result.Visible = false;
+                        template.Visible = false;
                         sysconfigR_Result.Visible = true;
                         sysconfigR_Result.Text += "<br/> <br/>" + m2.ToString();
 
@@ -366,31 +392,122 @@ public partial class Test_TestDefault : System.Web.UI.Page
         }
     }
 
+    public void gen_Temp(string pathToFile)
+    {
+        bool flag = false;
+        string check = "Broken disks";
+        using (StreamReader reader = new StreamReader(outputFilePath))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (line.Contains(check))
+                {
+                    flag = true;
+                    break;
+                }
+            }
+
+        }
+        if (flag == true)
+        {
+            int i;
+            List<string> rout = new List<string>();
+            List<string> aout = new List<string>();
+
+            using (StreamReader reader = new StreamReader(outputFilePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+
+                    string temp = @"failed\s+[0-9a-z.]+";
+                    Regex tempregex = new Regex(temp);
+                    Match m3 = tempregex.Match(line);
+                    if (m3.Success)
+                    {
+                        GridView1.Visible = false;
+                        result.Visible = false;
+                        sysconfigR_Result.Visible = false;
+                        template.Visible = true;
+                        //template.Text += "Need to replace the disk given below:";
+                        rout.Add(m3.ToString());
+
+                    }
+                }
+            }
+            using (StreamReader reader = new StreamReader(outputFilePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string checkfail = "(Failed)";
+                    if (line.Contains(checkfail))
+                    {
+                        string test = @"([A-Z0-9]+[_][A-Z0-9]+)+";
+                        Regex tregex = new Regex(test);
+                        Match m31 = tregex.Match(line);
+                        if (m31.Success)
+                        {
+                            GridView1.Visible = false;
+                            result.Visible = false;
+                            sysconfigR_Result.Visible = false;
+                            template.Visible = true;
+                            //template.Text += " <br/> Model : <br/> " + m31.ToString() + "<br>";
+                            aout.Add("   Model : " + m31.ToString());
+                        }
+                    }
+
+                }
+            }
+
+            for (i = 0; i <= aout.Count() - 1; i++)
+            {
+
+                template.Text += rout[i] + " \t" + aout[i] + "<br>";
+                
+            }
+            for (i = 0; i <= rout.Count() - 1; i++)
+            {
+                template.Text += rout[i] + "<br>";
+            }
+        }
+        generate_Temp.Enabled = false;
+    }
+
     protected void sysconfigA_Click(object sender, EventArgs e)
     {
         sysconfigR_Result.Text = "";
-        search_FileFromSerialNumber();
+        template.Visible = false;
+        search_FileFromSerialNumber(selectedFileID);
         sysconfig_a_Search(outputFilePath);
-        generate_Temp.Enabled = true;
-        deleteDir(root, outputFilePath);
-
+        //generate_Temp.Enabled = true;
 
     }
 
     protected void sysconfigR_Click(object sender, EventArgs e)
     {
         result.Text = "";
-        search_FileFromSerialNumber();
+        template.Visible = false;
+        search_FileFromSerialNumber(selectedFileID);
         sysconfig_r_Search(outputFilePath);
         generate_Temp.Enabled = true;
-        deleteDir(root, outputFilePath);
 
     }
 
 
     protected void generate_Temp_Click(object sender, EventArgs e)
     {
+        result.Text = " ";
+        sysconfigR_Result.Text = "";
+        search_FileFromSerialNumber(selectedFileID);
+        template.Visible = true;
+        gen_Temp(outputFilePath);
+        deleteDir(root, outputFilePath);
+
     }
+
+
 }
 
 

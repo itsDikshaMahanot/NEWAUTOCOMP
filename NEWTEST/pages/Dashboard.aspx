@@ -107,7 +107,7 @@
                         <div class="card-body" style="align-self: center;">
                             <h5 class="card-title" style="letter-spacing: normal; font-size: large; color: #FF9933; text-transform: capitalize; text-align: center;">LINKS</h5>
                             <a href="https://mysupport.netapp.com/">My Support Page</a>
-                           <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware">Disk-Shelf-Firmware</a>
+                           <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Shelf-Firmware</a>
                            <br /> <a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Drive-Firmware</a>
                             <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/system-firmware-diagnostics">System-Firmware-Diagnostics</a>
                             <br /><a href="https://mysupport.netapp.com/matrix/#welcome">Interoperability Matrix Tool  </a>

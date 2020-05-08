@@ -64,7 +64,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Test/TestDefault.aspx");
+        Response.Redirect("~/Test/Search_sysconfigout.aspx");
     }
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
