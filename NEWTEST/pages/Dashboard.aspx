@@ -16,82 +16,26 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        .button {
-            padding: 15px 25px;
-            font-size: 24px;
-            text-align: center;
-            cursor: pointer;
-            outline: none;
-            color: #fff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 9px #999;
-            /*margin-left:400px;
-            margin-top:50px;*/
-        }
-
-            .button:hover {
-                background-color: #3e8e41
-            }
-
-            .button:active {
-                background-color: #3e8e41;
-                box-shadow: 0 5px #666;
-                transform: translateY(4px);
-            }
-
-        #Second {
-            margin-top: 100px;
-        }
-
-        .auto-style1 {
-            position: relative;
-            width: 100%;
-            -ms-flex: 0 0 8.333333%;
-            flex: 0 0 8.333333%;
-            max-width: 8.333333%;
-            left: 0px;
-            top: 0px;
-            padding-left: 10px;
-            padding-right: 10px;
+        a:hover {
+            background-color: lightblue
         }
     </style>
-
-    <%--<script>  //code for src to come in iframe 
-        $(document).ready(function () {
-            $("a").click(function (e) {
-                e.preventDefault();
-                $("a").removeClass("active");
-                $(this).addClass("active");
-                $("#myFrame").attr("src", $(this).attr("href"));
-            })
-        });
-
-
-
-    </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="row flex-xl-nowrap " style="padding-left: 0.3cm; padding-right: 0.3cm;" draggable="false">
-        <div style="color: blue; padding: 2%">
-        </div>
-        <div style="width: 70%;">
+    <div id="content2" class="row flex-xl-nowrap " style="padding-left: 2.5cm; padding-right: 1cm;" draggable="false">
+        <div style="width: 75%;">
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="card shadow p-3 mb-5 bg-white rounded" style="align-self: center;">
-                        <div class="card-body" style="align-self: center;">
-                            <asp:ImageButton runat="server" AlternateText="Disk Issue" ForeColor="#FF9933" ImageUrl="~/Assests/diskissues.png" ToolTip="Disk Issue" BackColor="Black" BorderStyle="Solid" ImageAlign="AbsMiddle" PostBackUrl="~/pages/Newdashboard.aspx" Height="150px" CssClass="rounded-right"></asp:ImageButton>
+                <div class="col-xl-10 card shadow" style="margin-top: 0.5%">
+                    <div class="p-3 mb-5 bg-white rounded" style="align-self: center;">
+                        <div id="diskbtn" class="card-body w3-hover-shadow w3-center" style="align-self: center; float: left;">
+                            <asp:ImageButton runat="server" AlternateText="Disk Issue" ImageUrl="~/Assests/HDD.jpg" ToolTip="Disk Issue" ImageAlign="AbsMiddle" PostBackUrl="~/pages/Newdashboard.aspx" Height="150px" CssClass="rounded-right" Width="100%"></asp:ImageButton>
                             <br />
                             <br />
                             <h5 class="card-title" style="letter-spacing: normal; font-size: large; color: #FF9933; text-transform: capitalize; text-align: center;">DISK ISSUES</h5>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card shadow p-3 mb-5 bg-white rounded" style="align-self: center;">
-                        <div class="card-body" style="align-self: center;">
-                            <asp:ImageButton runat="server" AlternateText="Disk Issue" ForeColor="#FF9933" ImageUrl="~/Assests/psuissue.png" ToolTip="Disk Issue" BackColor="Black" BorderStyle="Solid" ImageAlign="AbsMiddle" PostBackUrl="~/pages/NewPSUdashboard.aspx" Height="150px" CssClass="rounded-right"></asp:ImageButton>
+                        &nbsp; &nbsp; &nbsp; 
+                        <div id="psubtn" class="card-body w3-hover-shadow w3-center" style="align-self: center; float: right;">
+                            <asp:ImageButton runat="server" AlternateText="PSU Issue" ImageUrl="~/Assests/PSU.jpg" ToolTip="Disk Issue" ImageAlign="AbsMiddle" PostBackUrl="~/pages/NewPSUdashboard.aspx" Height="100%" CssClass="rounded-right" Width="100%"></asp:ImageButton>
                             <br />
                             <br />
                             <h5 class="card-title" style="letter-spacing: normal; font-size: large; color: #FF9933; text-transform: capitalize; text-align: center;">PSU ISSUES</h5>
@@ -102,15 +46,19 @@
         </div>
         <div style="width: 30%;">
             <div class="row">
-                <div class="col-xl-12">
-                    <div class="card shadow p-3 mb-5 bg-white rounded" style="align-self: center;">
-                        <div class="card-body" style="align-self: center;">
+                <div class="col-xl-10 card shadow" style="margin-top: 2%">
+                    <div class="p-3 mb-5 bg-white rounded" style="align-self: center;">
+                        <div class="card-body mb-5" style="align-self: center; height:50%">
                             <h5 class="card-title" style="letter-spacing: normal; font-size: large; color: #FF9933; text-transform: capitalize; text-align: center;">LINKS</h5>
                             <a href="https://mysupport.netapp.com/">My Support Page</a>
-                           <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Shelf-Firmware</a>
-                           <br /> <a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Drive-Firmware</a>
-                            <br /><a href="https://mysupport.netapp.com/site/downloads/firmware/system-firmware-diagnostics">System-Firmware-Diagnostics</a>
-                            <br /><a href="https://mysupport.netapp.com/matrix/#welcome">Interoperability Matrix Tool  </a>
+                            <br />
+                            <a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Shelf-Firmware</a>
+                            <br />
+                            <a href="https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware">Disk-Drive-Firmware</a>
+                            <br />
+                            <a href="https://mysupport.netapp.com/site/downloads/firmware/system-firmware-diagnostics">System-Firmware-Diagnostics</a>
+                            <br />
+                            <a href="https://mysupport.netapp.com/matrix/#welcome">Interoperability Matrix Tool  </a>
                         </div>
                     </div>
                 </div>

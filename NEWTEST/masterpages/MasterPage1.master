@@ -64,15 +64,15 @@
         <nav class="navbar navbar-inverse navbar-expand-sm bg-dark navbar-dark sticky-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <asp:Image ID="Image1" runat="server" Height="50px" ImageUrl="~/Assests/netapp.png" Width="50px" /><a class="w3schools-logo notranslate" "></a>
-                    <span> &nbsp<a class="navbar-brand" href="#">AutoComp</a></span>
+                    <asp:Image ID="Image1" runat="server" Height="50px" ImageUrl="~/Assests/netapp.png" Width="50px" />
+                    <a class="w3schools-logo notranslate" "></a>
+                    <span> &nbsp<a class="navbar-brand" href="#" style="color: #FFFFFF">AutoComp</a></span>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="collapsibleNavbar">
-                    <ul class="nav navbar-nav navbar-right" style="right: 0; margin-right: 20px; position: absolute;">
-                       
+                    <ul class="nav navbar-nav navbar-right" style="right: 0; margin-right: 20px; position: absolute;">                       
                         <li class="nav-item">
                             <asp:Button ID="Button1" runat="server" CssClass="w3-button w3-light-green w3-round-large" Text="CREATE RMA" OnClick="Button1_Click1"/> 
                         </li> &nbsp  
@@ -85,15 +85,12 @@
                             LOGOUT</button>
                        </li>
                     </ul>
-
                 </div>
-
             </div>
         </nav>
-        <div>
-           
+        <div>           
         </div>
-        <div class="container-fluid" style="padding: 2%;">
+        <div class="container-fluid" style="padding: 2%; height: 300%;">
             
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
 

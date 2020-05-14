@@ -16,30 +16,30 @@ public partial class pages_Disk : System.Web.UI.Page
 
         string sr = serialnumber.Text;
         string psr = partnerserialnumber.Text;
-        string asup_status = null;        
+        string asup_status = null;
         if (on.Checked == true) asup_status = "ON";
         else if (aod.Checked == true) asup_status = "AOD";
         else asup_status = "OFF";
         string category = category2.SelectedIndex.ToString();
-        if (casenumber.Text == string.Empty | serialnumber.Text == string.Empty | partnerserialnumber.Text == string.Empty | category2.Items.FindByText(" ") != null)
+        if (casenumber.Text == string.Empty || serialnumber.Text == string.Empty || partnerserialnumber.Text == string.Empty || category2.Items.FindByText(" ") != null || asup_status == null )
         {
             Label1.Text = " Required all Fields";
         }
         else
-        {            
+        {
             Response.Redirect(string.Format("Disksearch.aspx?sr={0}&psr={1}&asup_status={2}&category={3}", sr, psr, asup_status, category));
         }
-       
+
     }
 
     private void resetForm()
-    {
+{
 
-        throw new NotImplementedException();
-    }
+    throw new NotImplementedException();
+}
 
-    protected void category2_SelectedIndexChanged(object sender, EventArgs e)
-    {
+protected void category2_SelectedIndexChanged(object sender, EventArgs e)
+{
 
-    }
+}
 }

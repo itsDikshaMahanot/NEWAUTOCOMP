@@ -5,13 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Drawing;
-using System.Collections;
 
 public partial class Test_Search_sysconfigout : System.Web.UI.Page
 {
@@ -21,16 +15,16 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
     string textToSearch;
     string outputFilePath;
     string root = @"C:\Users\diksham\Desktop\temp";
+    string fileName;
 
     protected void Page_Load(object sender, EventArgs e)
     {
 
         {
-            if (IsPostBack)
+            if (!IsPostBack)
             {
                 //BindGrid();            
                 //this.BindGrid();
-
             }
         }
     }
@@ -131,15 +125,6 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
         }
 
     }
-    protected void DemoGrid_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            //TO DO: make script a global variable
-            var script = "document.getElementByID('" + srchFile.ClientID + "').click();";
-            e.Row.Attributes.Add("onclick", script);
-        }
-    }
     protected void demobutton() //to refresh the gridview index
     {
         GridView1.SelectedIndex = -1;
@@ -164,7 +149,7 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
         System.IO.Directory.CreateDirectory(root);
 
         // Create a file name for the file you want to create.
-        string fileName = "MyCurrentLogs.txt";
+        fileName = "MyCurrentLogs.txt";
 
         string pathString = System.IO.Path.Combine(root, fileName);
 
@@ -182,7 +167,6 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                 cmd.CommandText = "select data from Upload_Log where id = " + fileid;
                 cmd.Connection = con;
                 con.Open();
-                // Console.WriteLine("hello im here");
                 using (var reader = cmd.ExecuteReader(CommandBehavior.SequentialAccess))
                 {
                     if (reader.Read())
@@ -190,7 +174,7 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                         // again, we map the result to an SqlBytes instance
                         var bytes = reader.GetSqlBytes(0); // column ordinal, here 1st column -> 0
 
-                        // I use a file stream, but that could be any stream (asp.net, memory, etc.)
+                        // using file stream
                         if (!System.IO.File.Exists(outputFilePath))
                         {
                             using (System.IO.FileStream fs = System.IO.File.Create(outputFilePath))
@@ -202,23 +186,16 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                                 bytes.Stream.CopyTo(file);
                             }
                         }
-
                     }
                 }
-
                 con.Close();
             }
         }
-
-
-
-
     }
 
     public void deleteDir(string root, string output)
     {
-
-        // ...or by using FileInfo instance method.
+        //  by using FileInfo instance method.
         System.IO.FileInfo fi = new System.IO.FileInfo(output);
         try
         {
@@ -271,6 +248,7 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                 using (StreamReader reader = new StreamReader(pathToFile))
                 {
                     string line;
+
                     while ((line = reader.ReadLine()) != null)
                     {
                         string cmndregex = @"System Serial Number:\s*[0-9]*\s[(a-zA-Z0-9-_)]*";
@@ -285,59 +263,50 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                             break;
                         }
                     }
-                }
-
-                using (StreamReader reader = new StreamReader(pathToFile))
-                {
-                    string line;
                 Found:
                     while ((line = reader.ReadLine()) != null)
                     {
-                        string adapter = @"slot 0:\s[A-Z]+\s[A-Za-z]+\s[A-Za-z]+\s[0-9a-z]+\s[(][A-Za-z-\s]+[0-9]+\s[A-Za-z.]+\s[A-Za-z0-9,]+\s[A-Z,]+\s<.+>[)]";
+
+                        System.Diagnostics.Debug.WriteLine(" =====>" + line);
+                        string adapter = @"slot\s[0-9:]+\s[A-Z]+\s[A-Za-z]+\s[A-Za-z]+\s[0-9a-z]+\s[(][A-Za-z-\s]+[0-9]+\s[A-Za-z.]+\s[A-Za-z0-9,]+\s[A-Z,]+\s<.+>[)]";
                         Regex adpregex = new Regex(adapter);
                         Match adm = adpregex.Match(line);
-
                         if (adm.Success)
                         {
                             if (line.Contains("<UP>"))
                                 sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;UP&gt;";
                             else if (line.Contains("<DOWN>"))
                                 sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;DOWN&gt;";
-
-                            while ((line = reader.ReadLine()) != null)
-                            {
-                                System.Diagnostics.Debug.WriteLine(line);
-                                //need to check for after each slot only particular adapter to show its failed disk.
-                                string textregex = @"\d+\.?\d*\s?[:]\s\w*\s+[A-Z0-9_]*\s[A-Z0-9]+\s\d+\.\w*\s[0-9A-Za-z/]+\s[(][Failed]+[)]*";
-                                Regex diskregex = new Regex(textregex);
-                                Console.WriteLine(line);
-                                Match ma = diskregex.Match(line);
-                                if (ma.Success)
-                                {
-                                    GridView1.Visible = false;
-                                    sysconfigA_Result.Visible = true;
-                                    generate_Temp.Enabled = false;
-                                    sysconfigA_Result.Text += "<br/> <br/>" + ma.ToString();
-                                }
-
-                                if (adpregex.Match(line).Success)
-                                {
-                                    if (line.Contains("<UP>"))
-                                        sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;UP&gt;";
-                                    else if (line.Contains("<DOWN>"))
-                                        sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;DOWN&gt;";
-                                    goto Found;
-                                }
-                            }
+                        }
+                        System.Diagnostics.Debug.WriteLine("------>" + line);
+                        //need to check for after each slot only particular adapter to show its failed disk.
+                        string textregex = @"\d+\.?\d*\s?[:]\s\w*\s+[A-Z0-9_]*\s[A-Z0-9]+\s\d+\.\w*\s[0-9A-Za-z/]+\s[(][Failed]+[)]*";
+                        Regex diskregex = new Regex(textregex);
+                        Match ma = diskregex.Match(line);
+                        if (ma.Success)
+                        {
                             GridView1.Visible = false;
                             sysconfigA_Result.Visible = true;
+                            generate_Temp.Enabled = false;
+                            sysconfigA_Result.Text += "<br/> <br/>" + ma.ToString();
                         }
+
+                        if (adpregex.Match(line).Success)
+                        {
+                            //if (line.Contains("<UP>"))
+                            //    sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;UP&gt;";
+                            //else if (line.Contains("<DOWN>"))
+                            //    sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;DOWN&gt;";
+                            goto Found;
+                        }
+                        GridView1.Visible = false;
+                        sysconfigA_Result.Visible = true;
                     }
+
                 }
             }
         }
     }
-
     protected void sysconfig_r_Search(string pathToFile)
     {
         bool flag = false;
@@ -451,7 +420,7 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                     }
                     if (line.Contains(checkF))
                     {
-                        System.Diagnostics.Debug.WriteLine("Current Line :::::::::: ",line);
+                        System.Diagnostics.Debug.WriteLine("Current Line :::::::::: ", line);
                         string disk = @"\b\w[0-9.]+";
                         Regex disktest = new Regex(disk);
                         Match m33 = disktest.Match(line);
@@ -462,13 +431,13 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                             GridView1.Visible = false;
                             sysconfigA_Result.Visible = false;
                             sysconfigR_Result.Visible = false;
-                            template.Visible = true;                          
+                            template.Visible = true;
                             diskAddrList.Add(m33.ToString());
                             System.Diagnostics.Debug.WriteLine("Disk Addr=============>>>", m33.ToString());
                             Console.WriteLine(diskAddrList.Count());
                             // template.ForeColor = System.Drawing.Color.Green;
                         }
-                        foreach(string a in diskAddrList)
+                        foreach (string a in diskAddrList)
                         {
                             System.Diagnostics.Debug.WriteLine(a);
 
@@ -477,7 +446,8 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                     for (i = 0; i < diskAddrList.Count(); i++)
                     {
                         sysconfigR_Result.Visible = true;
-                        sysconfigR_Result.Text = rout[i] + "     "+diskAddrList[i] + "<br>";
+                        sysconfigR_Result.Text = rout[i] + "<br> " + " Replace Disk at shelf :   " + "      " + diskAddrList[i] + " <br>";
+                        sysconfigR_Result.ForeColor = System.Drawing.Color.Green;
                     }
                 }
 
@@ -492,11 +462,8 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                     if (line.Contains(checkfail))
                     {
                         string test = @"([A-Z0-9]+[_][A-Z0-9]+)+";
-                        // string disk = @"[0-9.a-z]+";
                         Regex tregex = new Regex(test);
-                        // Regex disktest = new Regex(disk);
                         Match m31 = tregex.Match(line);
-                        // Match m32 = disktest.Match(line);
                         if (m31.Success)
                         {
                             GridView1.Visible = false;
@@ -505,15 +472,6 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                             template.Visible = true;
                             aout.Add("   Model : " + m31.ToString());
                         }
-                        //if (m32.Success)
-                        //{
-                        //    GridView1.Visible = false;
-                        //    sysconfigA_Result.Visible = false;
-                        //    sysconfigR_Result.Visible = false;
-                        //    template.Visible = true;
-                        //    diskAddrList.Add(m32.ToString());
-                        //    template.ForeColor = System.Drawing.Color.Green;
-                        //}
                     }
 
                 }
@@ -523,7 +481,10 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
             {
                 for (i = 0; i < aout.Count(); i++)
                 {
-                    template.Text += rout[i] + " \t" + aout[i] + "<br>" + "Replace Disk at shelf : " + diskAddrList[i] + "<br>";
+                    template.Text += rout[i] + "                    " + aout[i] + "<br>" + "Replace Disk at shelf : " + "  " + diskAddrList[i] + "<br>";
+                    template.ForeColor = System.Drawing.Color.Green;
+
+
                 }
             }
         }
@@ -533,12 +494,13 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
 
     protected void sysconfigA_Click(object sender, EventArgs e)
     {
-        if(GridView1.SelectedIndex != -1) { 
-        sysconfigR_Result.Text = null;
-        template.Visible = false;
-        search_FileFromSerialNumber(selectedFileID);
-        sysconfig_a_Search(outputFilePath);
-        demobutton();
+        if (GridView1.SelectedIndex != -1)
+        {
+            sysconfigR_Result.Text = null;
+            template.Visible = false;
+            search_FileFromSerialNumber(selectedFileID);
+            sysconfig_a_Search(outputFilePath);
+            demobutton();
             //generate_Temp.Enabled = true;
         }
     }
@@ -566,8 +528,6 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
         gen_Temp(outputFilePath);
         deleteDir(root, outputFilePath);
     }
-
-
 }
 
 

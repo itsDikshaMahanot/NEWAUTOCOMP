@@ -7,14 +7,14 @@
 <head runat="server">
     <title></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 </head>
@@ -62,7 +62,7 @@
                                 <input type="text" class="input-text autoclear" placeholder="Serial Number" runat="server" id="Text2" style="width: 85%; padding: 3px 7px 3px 7px" autocomplete="off" value="850000217840" />
                             </td>
                             <td>
-                                <asp:Button ID="srchFile" runat="server" Text=" File Search" Width="90%" OnClick="search_File"  />
+                                <asp:Button ID="srchFile" runat="server" Text=" File Search" Width="90%" OnClick="search_File" />
                             </td>
                         </tr>
                         <tr class="w3-center">
@@ -75,14 +75,14 @@
                         </tr>
                         <tr>
                             <td style="padding-left: 28%">
-                                <asp:Button ID="generate_Temp" runat="server" Text="Generate Template" Visible="true" CssClass="w3-center" Enabled="False" OnClick="generate_Temp_Click" />
+                                <asp:Button ID="generate_Temp" runat="server" Text="Generate Template" Visible="true" CssClass="w3-center" Enabled="False" OnClick="generate_Temp_Click" data-toggle="modal" data-target="#myModal" />
                             </td>
                         </tr>
                     </table>
 
                 </div>
                 <div class="col-xl-7" style="padding: 10px 20px 10px 20px; margin-top: 2%;">
-                    <div class="col  py-2" style="height: 100%; overflow: auto">
+                    <div class="col  py-2" style="height: 100%; overflow: auto; left: 0px; top: 0px;">
                         <asp:GridView ID="GridView1" runat="server" CellPadding="5" CellSpacing="12" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AllowSorting="True" Height="50%">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
@@ -115,16 +115,15 @@
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
                         <table class=" w-auto">
-
                             <tr>
-
                                 <td colspan="1">
                                     <asp:Label ID="sysconfigA_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%"></asp:Label>
                                     <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%"></asp:Label>
-                                    <asp:Label CssClass="w3-card-2" ID="template" runat="server" ForeColor="#3366FF" Visible="False" Text=" Need to replace the below given Disk: <br/>" ></asp:Label>
+                                    <asp:Label CssClass="w3-card-2" ID="template" runat="server" ForeColor="#3366FF" Visible="False" Text=" Need to replace the below given Disk: <br/>"></asp:Label>
                                 </td>
                             </tr>
                         </table>
+
                     </div>
                 </div>
             </div>

@@ -38,7 +38,7 @@
         <div class="container-fluid" >
             <div class="navbar-header">
                  <asp:Image ID="Image1" runat="server" Height="50px" ImageUrl="~/Assests/netapp.png" Width="50px" /><span><a class="w3schools-logo notranslate" "/>
-               &nbsp <a class="navbar-brand"> AutoComp </a>
+               &nbsp <a class="navbar-brand" style="color: #FFFFFF"> AutoComp </a>
             </div>
             </div>
             </nav>

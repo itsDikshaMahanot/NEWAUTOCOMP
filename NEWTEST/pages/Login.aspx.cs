@@ -18,8 +18,8 @@ public partial class pages_Login : System.Web.UI.Page
         string connetionString = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
         SqlConnection con;
         con = new SqlConnection(connetionString);
-        string username = Username.Text;
-        string password = Password.Text;
+        string username = Page.Request.Form["username"].ToString();
+        string password = Page.Request.Form["password"].ToString(); 
         con.Open();
         String query = "select * from  Login where Username='" + username + "' and Password='" + password + "'";
         SqlCommand cmd = new SqlCommand(query, con);
