@@ -4,17 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//cloud.typography.com/6091132/651206/css/fonts.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+  
     <style>
         .button {
             padding: 15px 25px;
@@ -27,8 +21,6 @@
             border: none;
             border-radius: 15px;
             box-shadow: 0 9px #999;
-            /*margin-left:400px;
-            margin-top:50px;*/
         }
 
             .button:hover {
@@ -44,6 +36,18 @@
         #Second {
             margin-top: 1%;
         }
+        
+
+.frame {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  box-sizing: border-box;
+}
     </style>
 
 
@@ -51,9 +55,10 @@
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="row flex-xl-nowrap " style="padding-left: 0.5cm; padding-right: 0.5cm;">
-        <div id="Second" class="row col-xl-12">
-            <iframe name="myFrame" src="Disk.aspx" id="myFrame" style=border: none;  background-color: #ffffff;" height="450%" width="250%"></iframe>
-        </div>
-    </div>
+ 
+        
+            <iframe name="myFrame" src="Disk.aspx" class="frame" style="background-color: #ffffff;">
+
+            </iframe>
+
 </asp:Content>

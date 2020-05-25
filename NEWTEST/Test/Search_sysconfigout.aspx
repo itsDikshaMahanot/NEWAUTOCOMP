@@ -17,6 +17,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
+    <script>
+
+        function copyToClipBoard(template) {
+            var txt = document.getElementById('<%=template.ClientID%>');
+            Copied = txt.createTextRange();
+            Copied.execCommand("Copy");
+            alert('Copied');
+            return false;
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server" font-names="Bodoni MT">
@@ -114,16 +124,21 @@
                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
-                        <table class=" w-auto">
-                            <tr>
-                                <td colspan="1">
-                                    <asp:Label ID="sysconfigA_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%"></asp:Label>
-                                    <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%"></asp:Label>
-                                    <asp:Label CssClass="w3-card-2" ID="template" runat="server" ForeColor="#3366FF" Visible="False" Text=" Need to replace the below given Disk: <br/>"></asp:Label>
+                        <table class="shadow-sm p-3 mb-5 bg-white rounded w-auto" style="width: 60%">
+                            <tr >
+                                <td style="padding-left: 1%" colspan="1">
+                                    <asp:Label ID="sysconfigA_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="130%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%"></asp:Label>
+                                    <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="130%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%"></asp:Label>
+                                    <asp:Label ID="template" runat="server" ForeColor="#3366FF" Visible="False" Text=" Need to replace the below given Disk: <br/>" Width="130%"></asp:Label>
+                                    <asp:Button ID="copy"  runat="server" Text="Copy" Visible="False" Enabled="False"  OnClientClick="copyToClipBoard()" Width="40%" />
                                 </td>
                             </tr>
                         </table>
-
+                        <%--</div>--%>
+                        <%--<div class="shadow-sm p-3 mb-5 bg-white rounded">--%>
+                        <%--<asp:Label ID="sysconfigA_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%"></asp:Label>
+                        <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="110%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%"></asp:Label>
+                        <asp:Label ID="template" runat="server" ForeColor="#3366FF" Visible="False" Text=" Need to replace the below given Disk: <br/>"></asp:Label>--%>
                     </div>
                 </div>
             </div>

@@ -120,6 +120,8 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
             sysconfigA_Result.Visible = false;
             sysconfigR_Result.Visible = false;
             template.Text = "";
+            copy.Visible = false;
+            copy.Enabled = false;
 
 
         }
@@ -220,8 +222,7 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
         }
 
     }
-
-
+    
     public void sysconfig_a_Search(string pathToFile)
     {
         bool flag = false;
@@ -293,10 +294,6 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
 
                         if (adpregex.Match(line).Success)
                         {
-                            //if (line.Contains("<UP>"))
-                            //    sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;UP&gt;";
-                            //else if (line.Contains("<DOWN>"))
-                            //    sysconfigA_Result.Text += "<br/> <br/>" + adm.ToString() + "&lt;DOWN&gt;";
                             goto Found;
                         }
                         GridView1.Visible = false;
@@ -416,7 +413,6 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                         sysconfigR_Result.Visible = false;
                         template.Visible = true;
                         rout.Add(m3.ToString());
-                        Console.WriteLine(rout.Count());
                     }
                     if (line.Contains(checkF))
                     {
@@ -434,8 +430,6 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                             template.Visible = true;
                             diskAddrList.Add(m33.ToString());
                             System.Diagnostics.Debug.WriteLine("Disk Addr=============>>>", m33.ToString());
-                            Console.WriteLine(diskAddrList.Count());
-                            // template.ForeColor = System.Drawing.Color.Green;
                         }
                         foreach (string a in diskAddrList)
                         {
@@ -447,7 +441,7 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
                     {
                         sysconfigR_Result.Visible = true;
                         sysconfigR_Result.Text = rout[i] + "<br> " + " Replace Disk at shelf :   " + "      " + diskAddrList[i] + " <br>";
-                        sysconfigR_Result.ForeColor = System.Drawing.Color.Green;
+                       // sysconfigR_Result.ForeColor = System.Drawing.Color.Green;
                     }
                 }
 
@@ -481,8 +475,8 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
             {
                 for (i = 0; i < aout.Count(); i++)
                 {
-                    template.Text += rout[i] + "                    " + aout[i] + "<br>" + "Replace Disk at shelf : " + "  " + diskAddrList[i] + "<br>";
-                    template.ForeColor = System.Drawing.Color.Green;
+                    template.Text += rout[i] + "                    " + aout[i] + "                   " + "Replace Disk at shelf : " + "  " + diskAddrList[i] + "<br>";
+                   // template.ForeColor = System.Drawing.Color.Green;
 
 
                 }
@@ -527,7 +521,19 @@ public partial class Test_Search_sysconfigout : System.Web.UI.Page
         template.Visible = true;
         gen_Temp(outputFilePath);
         deleteDir(root, outputFilePath);
+       // copy.Visible = true;
+       // copy.Enabled = true;
     }
+    //private void btnCopy_Click(object sender, EventArgs e)
+    //{
+    //    Clipboard.SetText(template.Text);
+    //}
+    //private void btnPaste_Click(object sender, EventArgs e)
+    //{
+    //    template.Text = Clipboard.GetText();
+    //}
+
+
 }
 
 

@@ -6,9 +6,14 @@
 <head runat="server">
     <title></title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
     <style type="text/css">
         .auto-style1 {
             margin-top: 8px;
+        }
+
+        .auto-style2 {
+            height: 44px;
         }
     </style>
 </head>
@@ -18,7 +23,7 @@
         <div class="w3-center">
             <div class="w3-center">
                 <br />
-                <asp:Button ID="Button1" runat="server" BackColor="#FF9900" CssClass="w3-button w3-round-xlarge" OnClick="Button1_Click" Text="BACK" />
+                <asp:Button ID="Button1" runat="server" CssClass="btn btn-outline-warning" OnClick="Button1_Click" Text="BACK" />
                 <asp:GridView ID="GridView1" runat="server" CellPadding="10" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" CellSpacing="5" HorizontalAlign="Center" onclick="GridView1_RowDataBound" CssClass="auto-style1">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
@@ -47,10 +52,41 @@
         </div>
         <br />
         <div align="center">
-            <asp:Label ID="Label2" runat="server" Style="margin-left: 70px"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Style="margin-left: 70px; text-align: center"></asp:Label>
+
+
+            <br />
+            <table id="syslog_tbl" runat="server" style="margin: 10px; padding: 10px; border-spacing: 20px; border-collapse: separate">
+                <tr>
+                    <th colspan="3" class="auto-style2" style="text-align: center; background-color: #CCCCCC;">COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER</th>
+                </tr>
+                <tr>
+                    <th>SYS LOG</th>
+                    <th>Cluster</th>
+                    <th>7 MODE</th>
+                </tr>
+                <tr>
+                    <td>> EMS LOG FILE  </td>
+                    <td>cluster1::> event log show </td>
+                    <td>node1 >ems event status </td>
+                </tr>
+
+                <tr>
+                    <td>> SYSCONFIG -A  </td>
+                    <td>cluster1::> system node run -node {nodename|local} sysconfig -a </td>
+                    <td>node1 > sysconfig -a </td>
+                </tr>
+
+                <tr>
+                    <td>> SYSCONFIG -R  </td>
+                    <td>cluster1::>system node run -node {nodename|local} sysconfig -r </td>
+                    <td>node1 > sysconfig -r </td>
+                </tr>
+            </table>
             <br />
             <br />
-            <asp:Button ID="Button2" runat="server" BackColor="#FF9900" CssClass="w3-button w3-round-xlarge" OnClick="Button2_Click" Text="NEXT" />
+            <br />
+            <asp:Button ID="Button2" runat="server" CssClass="btn btn-outline-success" OnClick="Button2_Click" Text="NEXT" />
         </div>
     </form>
 </body>
