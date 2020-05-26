@@ -15,15 +15,52 @@
         .auto-style2 {
             height: 44px;
         }
+
+
+        
+            
+        #nextbtn {
+            top: 20px;
+            background-color:#4CAF50;
+            position: absolute;
+            right: 0;
+            transition: 0.3s;
+            padding: 15px;
+            width: 100px;
+            text-decoration: none;
+            font-size: 15px;
+            color: white;
+            border-radius: 50px 0px 0px 50px;
+        }
+
+
+
+        #backbtn {
+            top: 20px;
+            background-color:#2196F3 ;
+            position: absolute;
+            left: 0;
+            transition: 0.3s;
+            padding: 15px;
+            width: 100px;
+            text-decoration: none;
+            font-size: 15px;
+            color: white;
+            border-radius: 0 50px 50px 0;
+        }
+        
+
+        
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <br />
-        <div class="w3-center">
-            <div class="w3-center">
-                <br />
-                <asp:Button ID="Button1" runat="server" CssClass="btn btn-outline-warning" OnClick="Button1_Click" Text="BACK" />
+        <div class="row">
+            <div class="col">
+                <asp:Button ID="backbtn" runat="server" CssClass="btn" OnClick="Button1_Click" Text="BACK" />
+            </div>
+            <div class="col-8" style="align:center">
                 <asp:GridView ID="GridView1" runat="server" CellPadding="10" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" CellSpacing="5" HorizontalAlign="Center" onclick="GridView1_RowDataBound" CssClass="auto-style1">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
@@ -47,46 +84,41 @@
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
                 <br />
+                <table id="syslog_tbl" runat="server" style="width: inherit; margin: 10px; padding: 10px;border-spacing: 30px;border-collapse: separate;">
+                    <tr>
+                        <th colspan="3" class="auto-style2" style="text-align: center; background-color: #CCCCCC;">COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER</th>
+                    </tr>
+                    <tr>
+                        <th>SYS LOG</th>
+                        <th>Cluster</th>
+                        <th>7 MODE</th>
+                    </tr>
+                    <tr>
+                        <td>> EMS LOG FILE  </td>
+                        <td>cluster1::> event log show </td>
+                        <td>node1 >ems event status </td>
+                    </tr>
+
+                    <tr>
+                        <td>> SYSCONFIG -A  </td>
+                        <td>cluster1::> system node run -node {nodename|local} sysconfig -a </td>
+                        <td>node1 > sysconfig -a </td>
+                    </tr>
+
+                    <tr>
+                        <td>> SYSCONFIG -R  </td>
+                        <td>cluster1::>system node run -node {nodename|local} sysconfig -r </td>
+                        <td>node1 > sysconfig -r </td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <br />
+                <asp:Label ID="Label2" runat="server" Style="margin-left: 70px; text-align: center"></asp:Label>
             </div>
-            <br />
-        </div>
-        <br />
-        <div align="center">
-            <asp:Label ID="Label2" runat="server" Style="margin-left: 70px; text-align: center"></asp:Label>
-
-
-            <br />
-            <table id="syslog_tbl" runat="server" style="margin: 10px; padding: 10px; border-spacing: 20px; border-collapse: separate">
-                <tr>
-                    <th colspan="3" class="auto-style2" style="text-align: center; background-color: #CCCCCC;">COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER</th>
-                </tr>
-                <tr>
-                    <th>SYS LOG</th>
-                    <th>Cluster</th>
-                    <th>7 MODE</th>
-                </tr>
-                <tr>
-                    <td>> EMS LOG FILE  </td>
-                    <td>cluster1::> event log show </td>
-                    <td>node1 >ems event status </td>
-                </tr>
-
-                <tr>
-                    <td>> SYSCONFIG -A  </td>
-                    <td>cluster1::> system node run -node {nodename|local} sysconfig -a </td>
-                    <td>node1 > sysconfig -a </td>
-                </tr>
-
-                <tr>
-                    <td>> SYSCONFIG -R  </td>
-                    <td>cluster1::>system node run -node {nodename|local} sysconfig -r </td>
-                    <td>node1 > sysconfig -r </td>
-                </tr>
-            </table>
-            <br />
-            <br />
-            <br />
-            <asp:Button ID="Button2" runat="server" CssClass="btn btn-outline-success" OnClick="Button2_Click" Text="NEXT" />
+            <div class="col">
+                <asp:Button ID="nextbtn" runat="server" CssClass="btn btn-outline-success" OnClick="Button2_Click" Text="NEXT" />
+            </div>
         </div>
     </form>
 </body>

@@ -276,8 +276,11 @@ public partial class Test_Test : System.Web.UI.Page
         List<string> TempA = new List<string>();
         List<string> TempAS = new List<string>();
         List<string> rout = new List<string>();
+
         List<string> aout = new List<string>();
+        List<string> dout = new List<string>();
         string checkfail = "(Failed)";
+
         if (flag == true)
         {
 
@@ -384,20 +387,41 @@ public partial class Test_Test : System.Web.UI.Page
                         {
                             GridView1.Visible = false;
                             sysconfigA_Result.Visible = false;
-                            // template.Visible = true;
-                            aout.Add("   Model : " + m31.ToString());
+                            aout.Add(m31.ToString());
                             Console.WriteLine(aout.Count());
                         }
                     }
 
                 }
             }
+            string connetionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            SqlConnection con;
+            SqlDataReader datareader;
+            SqlCommand cmd;
+            con = new SqlConnection(connetionString);
+            
+            if (aout != null)
+            {
+                for (int i = 0; i < aout.Count(); i++)
+                {
+                    con.Open();
+
+                    string query = "select Drive_Part_Number from Diskparts where Model_Number = '"+ aout[i] + "'";
+                    cmd = new SqlCommand(query, con);
+                    datareader = cmd.ExecuteReader();
+                    while(datareader.Read())
+                     dout.Add(datareader.GetString(0));
+                    con.Close();
+                }
+            }
+           
+
 
         }
         System.Diagnostics.Debug.WriteLine("Temp A : " + TempA.Count() + " ROUT : " + rout.Count() + " AOUT : " + aout.Count());
         for (int i = 0; i < TempA.Count(); i++)
         {
-            sysconfigR_Result.Text += "<br/>" + rout[i] + "   " + "Model:      " + "    "+ aout[i];
+            sysconfigR_Result.Text += "<br/>" + rout[i]+"\t" + "Part number:  "+"\t" + dout[i];
         }
     }
 

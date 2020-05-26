@@ -43,20 +43,15 @@ public partial class pages_Disksearch : System.Web.UI.Page
                 if (asup_status.Equals("ON") || asup_status.Equals("AOD"))
                 {
                     GridView1.DataBind();
+                    syslog_tbl.Visible = false;
                     Label2.Text = "<p> Check All cases Here !! <br/> " + " Click on the link to close the case !!</p> ";
+                    nextbtn.Enabled = false;
                 }
 
                 else if (asup_status.Equals("OFF"))
                 {
                     syslog_tbl.Visible = true;
-                    //Label2.Text = "<p> COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER <br/></p>" 
-                    //+"<p>> EMS LOG FILE  <br/>" +
-                    //"For cluster :- cluster1::> event log show " +
-                    //"<br/>For 7 MODE :- node1 >ems event status ><br/><br/> </p>" +
-                    //"<p>> SYSCONFIG -A <br/> For cluster : cluster1::> system node run -node {nodename|local} sysconfig -a " +
-                    //"<br/> For 7 MODE : node1 > sysconfig -a <br/><br/> </p>" +
-                    //"<p> > SYSCONFIG -R <br/> For cluster : cluster1::>system node run -node {nodename|local} sysconfig -r " +
-                    //"<br/> For 7 MODE : node1 > sysconfig -r </p>";
+                    
                  
                 }
             }
@@ -72,7 +67,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
         if (asup_status.Equals("OFF"))
-            Response.Redirect("~/Test/Test.aspx");
+            Response.Redirect("~/Test/Search_syslogs.aspx");
         else
             Response.Redirect("Disksearch.aspx");
     }

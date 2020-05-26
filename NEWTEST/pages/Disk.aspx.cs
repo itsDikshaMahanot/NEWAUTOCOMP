@@ -32,7 +32,7 @@ public partial class pages_Disk : System.Web.UI.Page
         }
         else
         {
-            if ((category2.Items.Equals("") || asup_status == null || symptom == null))
+            if ((category.Contains("0") || asup_status == null || symptom == null))
                 Label1.Text = " Required all Fields";
             else
                 Response.Redirect(string.Format("Disksearch.aspx?sr={0}&psr={1}&asup_status={2}&category={3}", sr, psr, asup_status, category));
