@@ -11,7 +11,7 @@ public partial class pages_Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
     }
     protected void Loginbtn_Click(object sender, EventArgs e)
     {
@@ -19,7 +19,7 @@ public partial class pages_Login : System.Web.UI.Page
         SqlConnection con;
         con = new SqlConnection(connetionString);
         string username = Page.Request.Form["username"].ToString();
-        string password = Page.Request.Form["password"].ToString(); 
+        string password = Page.Request.Form["password"].ToString();
         con.Open();
         String query = "select * from  Login where Username='" + username + "' and Password='" + password + "'";
         SqlCommand cmd = new SqlCommand(query, con);
@@ -33,7 +33,11 @@ public partial class pages_Login : System.Web.UI.Page
             Response.Redirect("Dashboard.aspx");
 
         }
-        con.Close();
-        //Response.Redirect("Dashboard.aspx");
     }
+    private void resetForm()
+    {
+
+        throw new NotImplementedException();
+    }
+
 }

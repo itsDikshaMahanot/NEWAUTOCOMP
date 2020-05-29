@@ -28,37 +28,6 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <%--<div class="main" align="center" style="background-image: url('http://localhost:51126/Assests/Login_Background.gif'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-position: center center;">
-        <table class="w3-card w3-padding-24" align="center" style="border: medium solid #000000; border-collapse: separate; border-spacing: 15px; width: 30%; font-family: 'Bodoni MT';">
-            <tr class="w3-center" >
-                <td>
-                    <asp:TextBox ID="Username" placeholder="Username" runat="server" CssClass="w3-padding-small"></asp:TextBox>
-                </td>
-            </tr>
-            <tr class="w3-center">
-                <td>
-                    <asp:TextBox ID="Password" placeholder="Password" runat="server" CssClass="fadeIn third" TextMode="Password"></asp:TextBox>
-                </td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-
-            <tr>
-                <td class="w3-center">
-                    <asp:Button ID="Loginbtn" runat="server" Text="Login" OnClick="Loginbtn_Click" class="w3-button w3-hover-blue w3-round-large " BackColor="#66CCFF"  ForeColor="Black" Width="100px" />
-                </td>
-
-            </tr>
-
-            <tr>
-                <td align="center">
-                    <asp:Label ID="Label1" runat="server" ForeColor="Red"></asp:Label>
-                </td>
-            </tr>
-        </table>
-    </div>--%>
     <div class="wrapper fadeInDown">
         <div id="formContent">
             <!-- Tabs Titles -->
@@ -70,7 +39,7 @@
 
             <!-- Login Form -->
             <form>
-                <input type="text"  id="uname" class="fadeIn second" name="username" placeholder="Username">
+                <input type="text" id="uname" class="fadeIn second" name="username" autocomplete="off" placeholder="Username">
                 <input type="password" id="pass" class="fadeIn third" name="password" placeholder="Password">
                 <input type="submit" class="fadeIn fourth" value="Log In" runat="server" onserverclick="Loginbtn_Click">
             </form>

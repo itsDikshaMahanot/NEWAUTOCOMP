@@ -6,182 +6,45 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices.ComTypes;
 
-public partial class Test_Test : System.Web.UI.Page
+public partial class Test_local : System.Web.UI.Page
 {
-    string selectedFilename;
-    static string selectedFileID;
-    string textToSearch;
-    string outputFilePath;
-    string root = @"C:\Users\diksham\Desktop\temp";
-    string fileName;
-    string filename;
+
+    string root = @"C:\Users\diksham\Desktop\temp\";
+
+    string filename, NewfileName = "MyCurrentLogs.txt";
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        
-        //Response.Write(DateTime.Now.ToString());
     }
-    protected void BindGrid(String filename)
-    {
-        string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(constr))
-        {
-            using (SqlCommand cmd = new SqlCommand())
-            {
-
-                cmd.CommandText = "select Id, serialno, name, Content_Type, size from Upload_Log where serialno = " + filename;
-                cmd.Connection = con;
-                con.Open();
-                try
-                {
-                    GridView1.DataSource = cmd.ExecuteReader();
-                    GridView1.DataBind();
-                }
-                catch (Exception exception)
-                {
-                    //status.Text = "Choose the correct File with correct format";
-                    exception.Message.ToString();
-                }
-
-
-                con.Close();
-            }
-        }
-
-    }
-
-
     protected void Upload(object sender, EventArgs e)
     {
+        System.IO.Directory.CreateDirectory(root);
+
         if (serialnumber.Value != string.Empty)
         {
             if (FileUpload1.HasFile == true)
             {
-                string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                string contentType = FileUpload1.PostedFile.ContentType;
-                string srno = serialnumber.Value;
-                //System.Diagnostics.Debug.WriteLine(" =====>" + contentType);
-                using (Stream fs = FileUpload1.PostedFile.InputStream)
-                {
-                    using (BinaryReader br = new BinaryReader(fs))
-                    {
-                        byte[] bytes = br.ReadBytes((Int32)fs.Length); //file stored in binary format.
-                        double file_size = fs.Length / 1024; //size of the file
-                        string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-                        using (SqlConnection con = new SqlConnection(constr))
-                        {
-                            string query = "insert into Upload_Log values (@Name, @Content_Type, @Data, @Size,@serialno)";
-                            using (SqlCommand cmd = new SqlCommand(query))
-                            {
-                                cmd.Connection = con;
-                                cmd.Parameters.AddWithValue("@Name", filename);
-                                cmd.Parameters.AddWithValue("@Content_Type", contentType);
-                                cmd.Parameters.AddWithValue("@Data", bytes);
-                                cmd.Parameters.AddWithValue("@Size", file_size);
-                                cmd.Parameters.AddWithValue("@serialno", srno);
-                                con.Open();
-                                cmd.ExecuteNonQuery();
-                                con.Close();
-                            }
-                        }
-                    }
-                    status.Text = "File Uploaded";
-                    BindGrid(filename);
-                }
+                filename = NewfileName;
+                // string contentType = FileUpload1.PostedFile.ContentType;
+                //string srno = serialnumber.Value;
+                FileUpload1.SaveAs(@"C:\Users\diksham\Desktop\temp\" + filename);
+                Console.WriteLine(filename);
+                status.Text = "File Uploaded : " + Path.GetFileName(FileUpload1.PostedFile.FileName);
+                sysconfigR_Result.Text = "";
             }
             else
-                status.Text = "Select FileName";
-            //Response.Redirect(Request.Url.AbsoluteUri);
+            {
+                status.Text = " Can not upload file";
+            }
         }
         else
         {
-            status.Text = "Enter the Serial Number";
-        }
-        GridView1.Visible = false;
-
-    }
-    protected void search_File(object sender, EventArgs e)
-    {
-
-        filename = Text2.Value;
-        BindGrid(filename);
-        if (sysconfigA_Result.Visible == true || sysconfigR_Result.Visible == true || generate_Temp.Enabled == true)
-        {
-
-            GridView1.Visible = true;
-            sysconfigA_Result.Visible = false;
-            sysconfigR_Result.Visible = false;
-            sysconfigR_Result.Text = null;
-            template.Text = null;
-
-        }
-
-    }
-    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        //selectedFilename = GridView1.SelectedRow.Cells[3].Text;
-        GridView1.DataSource = null;
-        selectedFileID = GridView1.SelectedRow.Cells[1].Text;
-
-
-        //result.Text = "File ID to Search :"+selectedFileID;
-    }
-    protected void demobutton() //to refresh the gridview index
-    {
-        GridView1.SelectedIndex = -1;
-        deleteDir(root, outputFilePath);
-    }
-    protected void search_FileFromSerialNumber(string selectedFileSerial)
-    {
-        string fileid = selectedFileSerial;
-
-        System.IO.Directory.CreateDirectory(root);
-
-        // Create a file name for the file you want to create.
-        fileName = "MyCurrentLogs.txt";
-
-        string pathString = System.IO.Path.Combine(root, fileName);
-
-        // Verify the path that you have constructed.
-        Console.WriteLine("Path to my file: {0}\n", root);
-
-        outputFilePath = pathString;
-
-        string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(constr))
-        {
-            using (SqlCommand cmd = new SqlCommand())
-            {
-
-                cmd.CommandText = "select data from Upload_Log where id = " + fileid;
-                cmd.Connection = con;
-                con.Open();
-                using (var reader = cmd.ExecuteReader(CommandBehavior.SequentialAccess))
-                {
-                    if (reader.Read())
-                    {
-                        // again, we map the result to an SqlBytes instance
-                        var bytes = reader.GetSqlBytes(0); // column ordinal, here 1st column -> 0
-
-                        // using file stream
-                        if (!System.IO.File.Exists(outputFilePath))
-                        {
-                            using (System.IO.FileStream fs = System.IO.File.Create(outputFilePath))
-                            {
-
-                            }
-                            using (var file = File.OpenWrite(outputFilePath))
-                            {
-                                bytes.Stream.CopyTo(file);
-                            }
-                        }
-                    }
-                }
-                con.Close();
-            }
+            status.Text = "enter the serial number";
         }
     }
+
 
     public void deleteDir(string root, string output)
     {
@@ -212,13 +75,37 @@ public partial class Test_Test : System.Web.UI.Page
     }
 
 
+    //protected void copyFile(string filename)
+    //{
+    //    if (File.Exists(filename))
+    //    {
+    //        NewfileName = "MyCurrentLogs.txt";
+    //        string pathString = System.IO.Path.Combine(root, NewfileName);
+    //        Console.WriteLine("Path to my file: {0}\n", root);
+    //        outputFilePath = pathString;
+    //        if (!System.IO.File.Exists(outputFilePath))
+    //        {
+    //            using (System.IO.FileStream fs = System.IO.File.Create(outputFilePath))
+    //            {
+    //                File.Copy(filename, NewfileName);
+    //                Console.WriteLine("true, success copy");
+    //            }
+    //        }
+    //    }
+    //}
 
-    public void gen_Temp(string pathToFile)
+    public void gen_Temp()
     {
+        string pathToFile = null;
+        if (NewfileName != null)
+        {
+            pathToFile = System.IO.Path.Combine(root, NewfileName);
+        }
+
         bool flag = false;
         bool flagA = false;
         bool flagR = false;
-        using (StreamReader reader = new StreamReader(outputFilePath))
+        using (StreamReader reader = new StreamReader(pathToFile))
         {
             string line;
             try
@@ -260,7 +147,7 @@ public partial class Test_Test : System.Web.UI.Page
                 if (flagA != true || flagR != true)
                 {
 
-                    template.Text = "Choose file with both output";
+                    sysconfigR_Result.Text = "Choose file with both output";
                 }
 
 
@@ -276,10 +163,13 @@ public partial class Test_Test : System.Web.UI.Page
         List<string> TempA = new List<string>();
         List<string> TempAS = new List<string>();
         List<string> rout = new List<string>();
-
         List<string> aout = new List<string>();
         List<string> dout = new List<string>();
+        List<string> haout = new List<string>();
+        List<string> shelfout = new List<string>();
+        List<string> bayout = new List<string>();
         string checkfail = "(Failed)";
+        string modelout = null;
 
         if (flag == true)
         {
@@ -295,7 +185,7 @@ public partial class Test_Test : System.Web.UI.Page
                     Match m = myRegex.Match(line);
                     if (m.Success)
                     {
-                        GridView1.Visible = false;
+
                         sysconfigR_Result.Visible = true;
                         sysconfigR_Result.Text = "<br/>" + " RESULT : <br/>" + m.ToString() + "<br/>";
                         break;
@@ -323,7 +213,7 @@ public partial class Test_Test : System.Web.UI.Page
                     Match ma = diskregex.Match(line);
                     if (ma.Success)
                     {
-                        GridView1.Visible = false;
+
                         TempA.Add(ma.ToString());
                         Console.WriteLine(TempA.Count());
                     }
@@ -332,9 +222,84 @@ public partial class Test_Test : System.Web.UI.Page
                     {
                         goto Found1;
                     }
-                    GridView1.Visible = false;
+
                 }
             }
+            ////
+            using (StreamReader reader = new StreamReader(pathToFile))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("++++++>" + line);
+                    if (line.Contains("Model Name:"))
+                    {
+                        string model1 = @"\w[A-Z]+[\s]?[A-Z0-9a-z]+";
+                        Regex m1regex = new Regex(model1);
+                        Match mm1 = m1regex.Match(line);
+                        if (mm1.Success)
+                        {
+                            modelout = mm1.ToString();
+                            //sysconfigR_Result.Text += "<br/>" + "Filer: " + modelout;
+                            break;
+                        }
+                    }
+                }
+                Console.WriteLine("");
+                while ((line = reader.ReadLine()) != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("!!!!!!!!" + line);
+                    if (line.Contains("failed"))
+                    {
+                        string HA = @"\b[0-9]+[a-z]+";
+                        Regex HAregex = new Regex(HA);
+                        Match ha = HAregex.Match(line);
+                        if (ha.Success)
+                        {
+                            haout.Add(ha.ToString());
+                        }
+                        string shelf = @"\b\w[0-9]+";
+                        Regex shelfregex = new Regex(shelf);
+                        Match Shelf = shelfregex.Match(line);
+                        if (Shelf.Success)
+                        {
+                            shelfout.Add(Shelf.ToString());
+                        }
+                    }
+                }
+            }
+            using (StreamReader reader = new StreamReader(pathToFile))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.Contains("failed"))
+                    {
+                        string bay = @"[0-9]+\s";
+                        Regex bayregex = new Regex(bay);
+                        Match Bay = bayregex.Match(line);
+                        if (Bay.Success)
+                        {
+                            bayout.Add(Bay.ToString());
+                        }
+
+                    }
+                }
+
+                System.Diagnostics.Debug.WriteLine(" HA : " + haout.Count() + "shelf :" + shelfout.Count() + "bay" + bayout.Count());
+                
+                    for (int i = 0; i < TempA.Count(); i++)
+                    {
+                        sysconfigR_Result.Text += "<br/>" + "Replace Disk on Channel : " + haout[i].PadRight(3, '-') + "on Shelf :-" + shelfout[i].PadRight(5, '-') + " on Bay :" + bayout[i].PadRight(6, '-') + "Filer: " + modelout;
+                        //throw new NullReferenceException("Model Name not found");
+                    }
+                
+              
+
+
+            }
+            ///
+
             using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
@@ -345,11 +310,8 @@ public partial class Test_Test : System.Web.UI.Page
                     Match m1 = chregex.Match(line);
                     if (m1.Success)
                     {
-                        GridView1.Visible = false;
-                        sysconfigA_Result.Visible = false;
-                        template.Visible = false;
                         sysconfigR_Result.Visible = true;
-                        sysconfigR_Result.Text += "<br/>" + m1.ToString() + "<br/>";
+                        sysconfigR_Result.Text += "<br/> <br/>" + m1.ToString() + "<br/>";
                         break;
                     }
                 }
@@ -364,8 +326,7 @@ public partial class Test_Test : System.Web.UI.Page
                     Match m3 = tempregex.Match(line);
                     if (m3.Success)
                     {
-                        GridView1.Visible = false;
-                        sysconfigA_Result.Visible = false;
+
                         // sysconfigR_Result.Visible = true;
                         //template.Visible = true;
                         rout.Add(m3.ToString());
@@ -385,8 +346,6 @@ public partial class Test_Test : System.Web.UI.Page
                         Match m31 = tregex.Match(line);
                         if (m31.Success)
                         {
-                            GridView1.Visible = false;
-                            sysconfigA_Result.Visible = false;
                             aout.Add(m31.ToString());
                             Console.WriteLine(aout.Count());
                         }
@@ -418,34 +377,26 @@ public partial class Test_Test : System.Web.UI.Page
 
 
         }
-        System.Diagnostics.Debug.WriteLine("Temp A : " + TempA.Count() + " ROUT : " + rout.Count() + " AOUT : " + aout.Count());
+        System.Diagnostics.Debug.WriteLine("Temp A : " + TempA.Count() + " ROUT : " + rout.Count() + " AOUT : " + aout.Count() + "HA" + haout.Count());
         for (int i = 0; i < TempA.Count(); i++)
         {
 
-            sysconfigR_Result.Text += "<br/>" + "Need to replace the given disk below: " + "<br/>" + rout[i].PadRight(40, '-') + "Part Number :" + dout[i].PadLeft(40, '-');
+            sysconfigR_Result.Text += "<br/>" + rout[i].PadRight(40, '-') + "Part Number :" + dout[i].PadLeft(40, '-');
         }
 
+
     }
+
+
+
+
+
     protected void generate_Temp_Click(object sender, EventArgs e)
     {
-        if (GridView1.SelectedIndex != -1)
-        {
-            GridView1.Visible = false;
-            sysconfigR_Result.Visible = true;
-            search_FileFromSerialNumber(selectedFileID);
-            template.Visible = true;
-            gen_Temp(outputFilePath);
-            deleteDir(root, outputFilePath);
-            demobutton();
-        }
+        //search_File(outputFilePath);
+        sysconfigR_Result.Visible = true;
+        gen_Temp();
+        deleteDir(root, NewfileName);
     }
-
-    private void resetForm()
-    {
-
-        throw new NotImplementedException();
-    }
-
-
 }
 

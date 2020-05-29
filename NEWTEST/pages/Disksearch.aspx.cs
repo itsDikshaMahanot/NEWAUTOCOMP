@@ -67,7 +67,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
         if (asup_status.Equals("OFF"))
-            Response.Redirect("~/Test/Search_syslogs.aspx");
+            Response.Redirect("~/Test/SearchLogs.aspx");
         else
             Response.Redirect("Disksearch.aspx");
     }

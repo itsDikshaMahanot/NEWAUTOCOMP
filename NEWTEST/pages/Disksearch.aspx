@@ -86,7 +86,7 @@
                 <br />
                 <table id="syslog_tbl" runat="server" style="width: inherit; margin: 10px; padding: 10px;border-spacing: 30px;border-collapse: separate;">
                     <tr>
-                        <th colspan="3" class="auto-style2" style="text-align: center; background-color: #CCCCCC;">COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER</th>
+                        <th colspan="3" class="auto-style2" style="text-align: center; background-color: #CCCCCC;">COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER IN A SINGLE FILE !</th>
                     </tr>
                     <tr>
                         <th>SYS LOG</th>

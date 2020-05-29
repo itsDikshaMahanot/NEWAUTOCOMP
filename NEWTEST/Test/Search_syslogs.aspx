@@ -19,7 +19,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="row">
-            <div class="col-md-5" align="center" style="padding: 10px 20px 10px 20px">
+            <div class="col-md-5" align="center" style="padding: 10px 20px 10px 20px; margin-top:2%">
                 <table class="w3-card w3-padding-24" align="center" style="border-collapse: separate; border-spacing: 15px; width: 70%; font-family: 'Bodoni MT';">
                     <tr class="w3-center">
                         <td>
@@ -49,6 +49,7 @@
                         </td>
                     </tr>
                 </table>
+                <hr />
                 <table class="w3-card w3-padding-24" align="center" style="border-collapse: separate; border-spacing: 20px; width: 70%; font-family: 'Bodoni MT';">
                     <tr class="w3-center">
                         <td>
@@ -57,15 +58,7 @@
                         <td>
                             <asp:Button ID="srchFile" runat="server" Text=" File Search" Width="90%" OnClick="search_File" />
                         </td>
-                    </tr>
-                    <tr class="w3-center">
-                        <%--<td style="padding-left: 15px; padding-right: 10px">
-                                <asp:Button ID="sysconfigA" runat="server" Text="SYSCONFIG -A" Width="98%" CssClass="w3-left" OnClick="sysconfigA_Click" />
-                            </td>
-                            <td style="padding-left: 10px; padding-right: 20px">
-                                <asp:Button ID="sysconfigR" runat="server" Text="SYSCONFIG -R" Width="108%" CssClass="w3-left" OnClick="sysconfigR_Click" />
-                            </td>--%>
-                    </tr>
+                    </tr>                    
                     <tr>
                         <td style="padding-left: 28%">
                             <asp:Button ID="generate_Temp" runat="server" Text="Generate Template" Visible="true" CssClass="w3-center" Enabled="true" OnClick="generate_Temp_Click" data-toggle="modal" data-target="#myModal" />
@@ -107,11 +100,11 @@
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
-                    <table class="shadow-sm p-3 mb-5 bg-white rounded w-auto" style="width: 60%">
+                    <table class="p-3 mb-5 bg-white rounded w-auto" style="width: 60%">
                         <tr>
                             <td style="padding-left: 1%" colspan="1">
                                 <asp:Label ID="sysconfigA_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="130%" Visible="False" Text="RESULT SYSCONFIG -A :" Height="90%"></asp:Label>
-                                <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="Red" Font-Bold="True" Font-Size="Small" Width="130%" Visible="False" Text="RESULT SYSCONFIG -R:" Height="90%"></asp:Label>
+                                <asp:Label ID="sysconfigR_Result" runat="server" ForeColor="#0066ff" Font-Bold="True" Font-Size="Small" Width="150%" Visible="False" Text="Result:" Height="90%"></asp:Label>
                                 <asp:Label ID="template" runat="server" ForeColor="#3366FF" Visible="False" Text=" Need to replace the below given Disk: <br/>" Width="130%"></asp:Label>
                                 <asp:Button ID="copy" runat="server" Text="Copy" Visible="False" Enabled="False" OnClientClick="copyToClipBoard()" Width="40%" />
                             </td>
