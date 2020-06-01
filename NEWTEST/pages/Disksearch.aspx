@@ -58,7 +58,7 @@
         <br />
         <div class="row">
             <div class="col">
-                <asp:Button ID="backbtn" runat="server" CssClass="btn" OnClick="Button1_Click" Text="BACK" />
+                <asp:Button ID="backbtn" runat="server" CssClass="btn" OnClick="Button1_Click" Text="BACK"/>
             </div>
             <div class="col-8" style="align:center">
                 <asp:GridView ID="GridView1" runat="server" CellPadding="10" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" CellSpacing="5" HorizontalAlign="Center" onclick="GridView1_RowDataBound" CssClass="auto-style1">
@@ -86,7 +86,7 @@
                 <br />
                 <table id="syslog_tbl" runat="server" style="width: inherit; margin: 10px; padding: 10px;border-spacing: 30px;border-collapse: separate;">
                     <tr>
-                        <th colspan="3" class="auto-style2" style="text-align: center; background-color: #CCCCCC;">COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER IN A SINGLE FILE !</th>
+                        <th colspan="3" class="auto-style2" style="text-align: center; background-color: #CCCCCC;">NOTE :- COLLECT THE FOLLOWING LOGS FROM THE CUSTOMER IN A SINGLE FILE !</th>
                     </tr>
                     <tr>
                         <th>SYS LOG</th>
@@ -96,7 +96,7 @@
                     <tr>
                         <td>> EMS LOG FILE  </td>
                         <td>cluster1::> event log show </td>
-                        <td>node1 >ems event status </td>
+                        <td>node1 > rdfile /etc/messages  </td>
                     </tr>
 
                     <tr>

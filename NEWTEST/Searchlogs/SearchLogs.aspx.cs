@@ -73,27 +73,6 @@ public partial class Test_local : System.Web.UI.Page
         }
 
     }
-
-
-    //protected void copyFile(string filename)
-    //{
-    //    if (File.Exists(filename))
-    //    {
-    //        NewfileName = "MyCurrentLogs.txt";
-    //        string pathString = System.IO.Path.Combine(root, NewfileName);
-    //        Console.WriteLine("Path to my file: {0}\n", root);
-    //        outputFilePath = pathString;
-    //        if (!System.IO.File.Exists(outputFilePath))
-    //        {
-    //            using (System.IO.FileStream fs = System.IO.File.Create(outputFilePath))
-    //            {
-    //                File.Copy(filename, NewfileName);
-    //                Console.WriteLine("true, success copy");
-    //            }
-    //        }
-    //    }
-    //}
-
     public void gen_Temp()
     {
         string pathToFile = null;
@@ -287,14 +266,14 @@ public partial class Test_local : System.Web.UI.Page
                 }
 
                 System.Diagnostics.Debug.WriteLine(" HA : " + haout.Count() + "shelf :" + shelfout.Count() + "bay" + bayout.Count());
-                
-                    for (int i = 0; i < TempA.Count(); i++)
-                    {
-                        sysconfigR_Result.Text += "<br/>" + "Replace Disk on Channel : " + haout[i].PadRight(3, '-') + "on Shelf :-" + shelfout[i].PadRight(5, '-') + " on Bay :" + bayout[i].PadRight(6, '-') + "Filer: " + modelout;
-                        //throw new NullReferenceException("Model Name not found");
-                    }
-                
-              
+
+                for (int i = 0; i < TempA.Count(); i++)
+                {
+                    sysconfigR_Result.Text += "<br/>" + "Replace Disk on Channel : " + haout[i].PadRight(3, '-') + "on Shelf :-" + shelfout[i].PadRight(5, '-') + " on Bay :" + bayout[i].PadRight(6, '-') + "Filer: " + modelout;
+                    //throw new NullReferenceException("Model Name not found");
+                }
+
+
 
 
             }
