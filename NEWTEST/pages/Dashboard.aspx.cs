@@ -28,7 +28,7 @@ public partial class pages_Dashboard : System.Web.UI.Page
 
     protected void Disk_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("Newdashboard.aspx");
+        Response.Redirect("Newdashboard.aspx");// only for disk issues
     }
 
 

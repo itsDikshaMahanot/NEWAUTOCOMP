@@ -17,7 +17,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
     string category;
     protected void Page_Load(object sender, EventArgs e)
     {
-       
+       //connection with database and taking values from disk page and showing the output
         string connetionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         SqlConnection con;
         SqlDataAdapter da;
@@ -30,7 +30,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
             psrl = Request.QueryString["psr"];
             asup_status = Request.QueryString["asup_status"];
             category = Request.QueryString["category"];
-
+            //Show all the cases related to that serial number.
             query = "select [Case_No.] , Case_Status,Symptom,Date_Open,Date_closed,Link from Tool_Main where [Serial_No.] = '" + srl + "' and [Partner_Serial_No] ='" + psrl + "' and [ASUP_Status] ='" + asup_status + "' and [Cat_ID] ='" + category + "' ";
 
             cmd = new SqlCommand(query, con);
@@ -64,6 +64,7 @@ public partial class pages_Disksearch : System.Web.UI.Page
         Response.Redirect("Disk.aspx");
     }
 
+    //btn event when ASUP=OFF
     protected void Button2_Click(object sender, EventArgs e)
     {
         if (asup_status.Equals("OFF"))

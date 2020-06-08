@@ -13,7 +13,7 @@ public partial class pages_Disk : System.Web.UI.Page
     }
     protected void btnsearch_Click(object sender, EventArgs e)
     {
-
+        //taking input from user and redirecting to diskserch page
         string sr = serialnumber.Text;
         string psr = partnerserialnumber.Text;
         string asup_status = null;
@@ -40,7 +40,7 @@ public partial class pages_Disk : System.Web.UI.Page
 
     }
 
-    private void resetForm()
+    private void resetForm() //reset of full form
 {
 
     throw new NotImplementedException();

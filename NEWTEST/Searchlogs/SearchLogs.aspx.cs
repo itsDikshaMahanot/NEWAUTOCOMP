@@ -152,7 +152,7 @@ public partial class Test_local : System.Web.UI.Page
 
         if (flag == true)
         {
-
+            //checking the serial number from sysconfig-a
             using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
@@ -170,6 +170,7 @@ public partial class Test_local : System.Web.UI.Page
                         break;
                     }
                 }
+                //checking  the slot of host adapter(like 0a or 0b)and it status
             Found1:
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -204,7 +205,7 @@ public partial class Test_local : System.Web.UI.Page
 
                 }
             }
-            ////
+            //checking model Name from sysonfig-a(like AFF, FAS,etc)
             using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
@@ -219,25 +220,24 @@ public partial class Test_local : System.Web.UI.Page
                         if (mm1.Success)
                         {
                             modelout = mm1.ToString();
-                            //sysconfigR_Result.Text += "<br/>" + "Filer: " + modelout;
                             break;
                         }
                     }
                 }
-                Console.WriteLine("");
+                //Checking of failed disk address in sysonfig-a(like 0a.11.10)
                 while ((line = reader.ReadLine()) != null)
                 {
                     System.Diagnostics.Debug.WriteLine("!!!!!!!!" + line);
                     if (line.Contains("failed"))
                     {
-                        string HA = @"\b[0-9]+[a-z]+";
+                        string HA = @"\b[0-9]+[a-z]+";  //(checking for adapter(0a)
                         Regex HAregex = new Regex(HA);
                         Match ha = HAregex.Match(line);
                         if (ha.Success)
                         {
                             haout.Add(ha.ToString());
                         }
-                        string shelf = @"\b\w[0-9]+";
+                        string shelf = @"\b\w[0-9]+";   //checking for shelf(like 11)
                         Regex shelfregex = new Regex(shelf);
                         Match Shelf = shelfregex.Match(line);
                         if (Shelf.Success)
@@ -247,6 +247,7 @@ public partial class Test_local : System.Web.UI.Page
                     }
                 }
             }
+            //checking for bay number in file
             using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
@@ -269,16 +270,14 @@ public partial class Test_local : System.Web.UI.Page
 
                 for (int i = 0; i < TempA.Count(); i++)
                 {
-                    sysconfigR_Result.Text += "<br/>" + "Replace Disk on Channel : " + haout[i].PadRight(3, '-') + "on Shelf :-" + shelfout[i].PadRight(5, '-') + " on Bay :" + bayout[i].PadRight(6, '-') + "Filer: " + modelout;
-                    //throw new NullReferenceException("Model Name not found");
+                    if (modelout != null)
+                        sysconfigR_Result.Text += "<br/>" + "Replace Disk on Channel : " + haout[i].PadRight(3, '-') + "on Shelf :-" + shelfout[i].PadRight(5, '-') + " on Bay :" + bayout[i].PadRight(6, '-') + "Filer: " + modelout;
+                    else
+                        sysconfigR_Result.Text = "Select the correct file";
                 }
 
-
-
-
             }
-            ///
-
+            // expression for Broken disk
             using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
@@ -295,6 +294,7 @@ public partial class Test_local : System.Web.UI.Page
                     }
                 }
             }
+            /// Expression to check for failed disk in sysconfig-r
             using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
@@ -313,6 +313,7 @@ public partial class Test_local : System.Web.UI.Page
                     }
                 }
             }
+            // expression for checking MODEL NUMBER in sysconfig-a
             using (StreamReader reader = new StreamReader(pathToFile))
             {
                 string line;
@@ -332,6 +333,7 @@ public partial class Test_local : System.Web.UI.Page
 
                 }
             }
+            // checking and retrving from database the part number acc to model number
             string connetionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
             SqlConnection con;
             SqlDataReader datareader;
@@ -352,27 +354,18 @@ public partial class Test_local : System.Web.UI.Page
                     con.Close();
                 }
             }
-
-
-
         }
+        //Displaying the failed disk with its part number
         System.Diagnostics.Debug.WriteLine("Temp A : " + TempA.Count() + " ROUT : " + rout.Count() + " AOUT : " + aout.Count() + "HA" + haout.Count());
         for (int i = 0; i < TempA.Count(); i++)
         {
-
-            sysconfigR_Result.Text += "<br/>" + rout[i].PadRight(40, '-') + "Part Number :" + dout[i].PadLeft(40, '-');
+            if (modelout != null)
+                sysconfigR_Result.Text += "<br/>" + rout[i].PadRight(40, '-') + "Part Number :" + dout[i].PadLeft(40, '-');
         }
-
-
     }
-
-
-
-
 
     protected void generate_Temp_Click(object sender, EventArgs e)
     {
-        //search_File(outputFilePath);
         sysconfigR_Result.Visible = true;
         gen_Temp();
         deleteDir(root, NewfileName);
